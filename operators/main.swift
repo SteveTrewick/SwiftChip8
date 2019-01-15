@@ -258,22 +258,97 @@ class Memory : Collection {
 }
 
 
+struct Sprite {
+	
+	let bytes : [UInt8]
+	let x     : Int
+	let y     : Int
+	let height: UInt8
+	
+	init(bytes: [UInt8], height: UInt8, x: UInt8, y: UInt8) {
+		self.bytes  = bytes
+		self.x      = Int(x)
+		self.y      = Int(y)
+		self.height = height
+	}
+	
+}
+
+class SpriteBuffer {
+	
+	let height   : Int
+	let width    : Int
+	var contents : ContiguousArray<UInt8>
+	
+	init(width:Int, height:Int) {
+		self.width    = width
+		self.height   = height
+		self.contents = ContiguousArray<UInt8>(repeating:0x0, count: width * height)
+	}
+	
+	func cls() {
+		self.contents = ContiguousArray<UInt8>(repeating:0x0, count: width * height)
+	}
+	
+	private func unpack(_ uint8: UInt8) -> [UInt8] {
+		var bits : [UInt8] = []
+		
+		for shift in stride(from: 7, to: -1, by: -1) {
+			let bit = (uint8 >> shift) & 0x1
+			bits.append(bit)
+		}
+		return bits
+	}
+	
+	
+	func draw(sprite: Sprite) -> UInt8 {
+		
+		var collision : UInt8 = 0
+		
+		for (r, row) in sprite.bytes.map(unpack).enumerated() {
+			
+			for (c, column) in row.enumerated() {
+			
+				let index = (sprite.x + c + ((sprite.y + r) * 64)) % 2048
+				
+				if contents[index] == 1 && (contents[index] ^ column) == 0 { collision = 1 }  // check collision
+				
+				contents[index] ^= column
+			}
+		}
+		return collision
+	}
+	
+	
+	func dumpFormatted() {
+		for i in stride(from: 0, to: width * height, by: width) {
+			print(contents[i...i+62].map { $0 == 1 ? "*" : "." }.joined())
+		}
+	}
+	
+}
+
 
 class Machine {
 	
-	let register    = Registers()
-	let memory      = Memory()
-	let memoryindex = MemoryIndex()
-	let pc          = ProgramCounter()
-	var opcode      = Opcode(word: 0x0000)
-	let key         = Keys()
-	let delaytimer  = Timer()
-	let soundtimer  = Timer()
-
+	let register     = Registers()
+	let memory       = Memory()
+	let memoryindex  = MemoryIndex()
+	let pc           = ProgramCounter()
+	var opcode       = Opcode(word: 0x0000)
+	let key          = Keys()
+	let delaytimer   = Timer()
+	let soundtimer   = Timer()
+	let spritebuffer = SpriteBuffer(width: 64, height: 32)
 
 	// doing these in line made the swift type checker very cross
-	func sprite(pixels: Slice<Memory>, height:UInt8, x: UInt8, y:UInt8) {
-		
+	func rendersprite(pixels: Slice<Memory>, height:UInt8, x: UInt8, y:UInt8) -> UInt8 {
+		return spritebuffer.draw(sprite: Sprite(
+			bytes : Array(pixels),
+			height: height,
+			x	    : x,
+			y     : y
+		))
 	}
 	
 	func bcd(_ byte: UInt8) -> [UInt8] {
@@ -345,12 +420,13 @@ let description : [UInt8:(Machine) throws -> Void] = [
 		0xb : { $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
 		
 
-		0xd: {	$0.sprite (
+		0xd: {	$0.register[0xf].load(0)
+						$0.register[0xf].load( $0.rendersprite (
 							pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
 							height: $0.opcode.nibble,
 							x     : $0.opcode.x,
 							y     : $0.opcode.y
-						)
+						))
 				 },
 		
 		0xe : { try [
