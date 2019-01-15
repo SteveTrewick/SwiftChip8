@@ -405,102 +405,100 @@ enum Bad : Error { case egg }
 let description : [UInt8:(Machine) throws -> Void] = [
 	
 	
-		0x1 : { $0.pc.jmp($0.opcode.address) },
-		
-		0x2 : { $0.pc.push()
-						$0.pc.jmp($0.opcode.address) },
-		
-		0x3 : { $0.pc.skip( $0.register[$0.opcode.x] == $0.opcode.byte ) },
-		
-		0x4 : { $0.pc.skip( $0.register[$0.opcode.x] != $0.opcode.byte ) },
-		
-		0x5 : { $0.pc.skip( $0.register[$0.opcode.x] == $0.register[$0.opcode.y] ) },
-		
-		0x6 : { $0.register[$0.opcode.x].load($0.opcode.byte)
-						$0.pc.increment()
-					},
-		
-		0x7 : { $0.register[$0.opcode.x] += $0.opcode.byte
-						$0.pc.increment()
-					},
-		
-		0x8: { try [
-							0x0 : { $0.register[$0.opcode.x]  = $0.register[$0.opcode.y] },
-							0x1 : { $0.register[$0.opcode.x] |= $0.register[$0.opcode.y] },
-							0x2 : { $0.register[$0.opcode.x] &= $0.register[$0.opcode.y] },
-							0x3 : { $0.register[$0.opcode.x] ^= $0.register[$0.opcode.y] },
-							
-							0x4 : { $0.register[$0.opcode.x] += $0.register[$0.opcode.y]
-											$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+				0x1 : { $0.pc.jmp($0.opcode.address) },
+				
+				0x2 : { $0.pc.push()
+								$0.pc.jmp($0.opcode.address) },
+				
+				0x3 : { $0.pc.skip( $0.register[$0.opcode.x] == $0.opcode.byte ) },
+				
+				0x4 : { $0.pc.skip( $0.register[$0.opcode.x] != $0.opcode.byte ) },
+				
+				0x5 : { $0.pc.skip( $0.register[$0.opcode.x] == $0.register[$0.opcode.y] ) },
+				
+				0x6 : { $0.register[$0.opcode.x].load($0.opcode.byte)
+								$0.pc.increment()
 							},
-							0x5 : { $0.register[$0.opcode.x] -= $0.register[$0.opcode.y]
-											$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+				
+				0x7 : { $0.register[$0.opcode.x] += $0.opcode.byte
+								$0.pc.increment()
 							},
-							0x6 : {	$0.register[0xf        ].load(0)
-											$0.register[0xf        ].load($0.register[$0.opcode.x].bits[7])
-											$0.register[$0.opcode.x].load($0.register[$0.opcode.x] >> 1)
+				
+				0x8: { try [
+									0x0 : { $0.register[$0.opcode.x]  = $0.register[$0.opcode.y] },
+									0x1 : { $0.register[$0.opcode.x] |= $0.register[$0.opcode.y] },
+									0x2 : { $0.register[$0.opcode.x] &= $0.register[$0.opcode.y] },
+									0x3 : { $0.register[$0.opcode.x] ^= $0.register[$0.opcode.y] },
+									
+									0x4 : { $0.register[$0.opcode.x] += $0.register[$0.opcode.y]
+													$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+									},
+									0x5 : { $0.register[$0.opcode.x] -= $0.register[$0.opcode.y]
+													$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+									},
+									0x6 : { $0.register[0xf        ].load($0.register[$0.opcode.x].bits[7])
+													$0.register[$0.opcode.x].load($0.register[$0.opcode.x] >> 1)
+									},
+									0x7 : { $0.register[$0.opcode.y] -= $0.register[$0.opcode.x]
+													$0.register[0xf        ].load($0.register[$0.opcode.y].overflow)
+									},
+									0xe : { $0.register[0xf        ].load($0.register[$0.opcode.x].bits[0])
+													$0.register[$0.opcode.x].load($0.register[$0.opcode.x] << 1)
+									}
+					
+								][$0.opcode.nibble, default: { machine in throw Bad.egg }]($0)
+								$0.pc.increment()
 							},
-							0x7 : { $0.register[$0.opcode.y] -= $0.register[$0.opcode.x]
-											$0.register[0xf        ].load($0.register[$0.opcode.y].overflow)
+				
+				0x9 : { $0.pc.skip( $0.register[$0.opcode.x] != $0.register[$0.opcode.y] )},
+				
+				0xa : { $0.memoryindex.load( $0.opcode.address)
+								$0.pc.increment()
 							},
-							0xe : {	$0.register[0xf        ].load(0)
-											$0.register[0xf        ].load($0.register[$0.opcode.x].bits[0])
-											$0.register[$0.opcode.x].load($0.register[$0.opcode.x] << 1)
-							}
-			
-						][$0.opcode.nibble, default: { machine in throw Bad.egg }]($0)
-						$0.pc.increment()
-					},
-		
-		0x9 : { $0.pc.skip( $0.register[$0.opcode.x] != $0.register[$0.opcode.y] )},
-		
-		0xa : { $0.memoryindex.load( $0.opcode.address)
-						$0.pc.increment()
-					},
-		
-		0xb : { $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
-		
+				
+				0xb : { $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
+				
 
-		0xd: {	$0.register[0xf].load(0)
-						$0.register[0xf].load( $0.rendersprite (
-							pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
-							height: $0.opcode.nibble,
-							x     : $0.register[$0.opcode.x],
-							y     : $0.register[$0.opcode.y]
-						))
-						$0.pc.increment()
-				 },
-		
-		0xe : { try [
-							0x9e: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == true  )},
-							0xa1: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == false )}
-			
-						][$0.opcode.byte, default: { machine in throw Bad.egg }]($0)
-					},
-
-		0xf : { try [
-							0x07: { $0.register[$0.opcode.x].load( $0.delaytimer ) },
-							0x0a: { $0.waitkey($0.opcode.x)},
-							0x15: { $0.delaytimer.load ( $0.register[$0.opcode.x] )},
-							0x18: { $0.soundtimer.load ( $0.register[$0.opcode.x] )},
-							0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
-							0x29: { $0.memoryindex.load( $0.register[$0.opcode.x] * 5)},
-							0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
-							0x55: {
-								for idx in 0...$0.opcode.x {
-									$0.memory.load($0.memoryindex + idx, $0.register[idx])
-								}
+				0xd: {	$0.register[0xf].load(0)
+								$0.register[0xf].load( $0.rendersprite (
+									pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
+									height: $0.opcode.nibble,
+									x     : $0.register[$0.opcode.x],
+									y     : $0.register[$0.opcode.y]
+								))
+								$0.pc.increment()
+						 },
+				
+				0xe : { try [
+									0x9e: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == true  )},
+									0xa1: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == false )}
+					
+								][$0.opcode.byte, default: { machine in throw Bad.egg }]($0)
 							},
-							0x65: {
-								for idx in 0...$0.opcode.x {
-									$0.register[idx].load( $0.memory[$0.memoryindex + idx] )
-								}
+
+				0xf : { try [
+									0x07: { $0.register[$0.opcode.x].load( $0.delaytimer ) },
+									0x0a: { $0.waitkey($0.opcode.x)},
+									0x15: { $0.delaytimer.load ( $0.register[$0.opcode.x] )},
+									0x18: { $0.soundtimer.load ( $0.register[$0.opcode.x] )},
+									0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
+									0x29: { $0.memoryindex.load( $0.register[$0.opcode.x] * 5)},
+									0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
+									0x55: {
+										for idx in 0...$0.opcode.x {
+											$0.memory.load($0.memoryindex + idx, $0.register[idx])
+										}
+									},
+									0x65: {
+										for idx in 0...$0.opcode.x {
+											$0.register[idx].load( $0.memory[$0.memoryindex + idx] )
+										}
+									}
+					
+								][$0.opcode.byte, default: { machine in throw Bad.egg }]($0)
+								$0.pc.increment()
 							}
-			
-						][$0.opcode.byte, default: { machine in throw Bad.egg }]($0)
-						$0.pc.increment()
-					}
-]
+		]
 
 
 
@@ -587,3 +585,15 @@ machine.pc.pointer = 0x200
 
 let harness = Harness(core: description, machine: machine)
 harness.emulate()
+
+
+// alrighty then, that works pretty nicely indeed now the most
+// ovbious bugs are out of it. I like this code, this one's
+// the keeper.
+
+// so what can we do to make it better?
+
+// for a start, non exity error handling, so we need to signal
+// back up when something is wrong, including the loop halt
+// so lets staty by setting up a proper error and a handler
+// to just print some stuff out
