@@ -144,10 +144,9 @@ class ProgramCounter {
 	
 	var pointer: UInt16 = 0x0200
 	
-	func jmp(_ address: UInt16) {
+	func jmp(_ address: UInt16) throws {
 		if address == pointer {
-			print("loop halt")
-			exit(0)
+			throw EmulationError.loopHalt
 		}
 		self.pointer = address
 	}
@@ -156,8 +155,8 @@ class ProgramCounter {
 		stack.push(pointer + step)
 	}
 	
-	func pop() {
-		guard let ret = stack.pop() else {fatalError("whoops")}
+	func pop() throws {
+		guard let ret = stack.pop() else { throw EmulationError.emptyStack  }
 		pointer = ret
 	}
 	
@@ -400,14 +399,23 @@ class Machine {
 
 }
 
-enum Bad : Error { case egg }
+
+enum EmulationError : Error {
+	case badInstruction
+	case loopHalt
+	case emptyStack
+}
+
+
 
 let description : [UInt8:(Machine) throws -> Void] = [
 	
 	
-				0x1 : { $0.pc.jmp($0.opcode.address) },
+				0x1 : { try
+				        $0.pc.jmp($0.opcode.address) },
 				
 				0x2 : { $0.pc.push()
+								try
 								$0.pc.jmp($0.opcode.address) },
 				
 				0x3 : { $0.pc.skip( $0.register[$0.opcode.x] == $0.opcode.byte ) },
@@ -446,7 +454,7 @@ let description : [UInt8:(Machine) throws -> Void] = [
 													$0.register[$0.opcode.x].load($0.register[$0.opcode.x] << 1)
 									}
 					
-								][$0.opcode.nibble, default: { machine in throw Bad.egg }]($0)
+								][$0.opcode.nibble, default: { _ in throw EmulationError.badInstruction }]($0)
 								$0.pc.increment()
 							},
 				
@@ -456,7 +464,7 @@ let description : [UInt8:(Machine) throws -> Void] = [
 								$0.pc.increment()
 							},
 				
-				0xb : { $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
+				0xb : { try $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
 				
 
 				0xd: {	$0.register[0xf].load(0)
@@ -473,7 +481,7 @@ let description : [UInt8:(Machine) throws -> Void] = [
 									0x9e: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == true  )},
 									0xa1: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == false )}
 					
-								][$0.opcode.byte, default: { machine in throw Bad.egg }]($0)
+								][$0.opcode.byte, default: { _ in throw EmulationError.badInstruction }]($0)
 							},
 
 				0xf : { try [
@@ -495,7 +503,7 @@ let description : [UInt8:(Machine) throws -> Void] = [
 										}
 									}
 					
-								][$0.opcode.byte, default: { machine in throw Bad.egg }]($0)
+								][$0.opcode.byte, default: { _ in throw EmulationError.badInstruction }]($0)
 								$0.pc.increment()
 							}
 		]
@@ -517,13 +525,15 @@ class Harness {
 	}
 	
 	
-	func emulate() {
+	func emulate() throws {
 		while true {
 			let hi         = machine.memory[Int(machine.pc.pointer)    ]
 			let lo         = machine.memory[Int(machine.pc.pointer) + 1]
 			let opcode     = (UInt16(hi) << 8) + UInt16(lo)
 			machine.opcode = Opcode(word: opcode)
+			
 			print("\(String(format: "%04x", machine.pc.pointer)) \(String(format: "%04x", opcode))")
+			
 			if machine.opcode.word == 0x00e0 {
 				machine.spritebuffer.cls()
 				machine.pc.increment()
@@ -531,23 +541,19 @@ class Harness {
 			}
 			
 			if machine.opcode.word == 0x0ee {
-				machine.pc.stack.pop()
+				try machine.pc.pop()
 				continue
 			}
-			
-			if let execute = core[machine.opcode.code] {
-				do {
-					try execute(machine)
-				}
-				catch {
-					print(error)
-					exit(0)
-				}
+			guard let execute = core[machine.opcode.code] else {
+				throw EmulationError.badInstruction
 			}
-			else {
-				print("bad instruction")
-				exit(0)
+			do {
+				try execute(machine)
 			}
+			catch {
+				throw error
+			}
+		
 		}
 	
 	}
@@ -584,7 +590,12 @@ machine.memory.load(romdata: Array(data), offset: 0x200)
 machine.pc.pointer = 0x200
 
 let harness = Harness(core: description, machine: machine)
-harness.emulate()
+do {
+	try harness.emulate()
+}
+catch {
+	print("execution terminated : \(error)")
+}
 
 
 // alrighty then, that works pretty nicely indeed now the most
