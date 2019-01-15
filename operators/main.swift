@@ -379,7 +379,7 @@ class Machine {
 	
 	// doing these in line made the swift type checker very cross
 	func rendersprite(pixels: Slice<Memory>, height:UInt8, x: Register, y: Register) -> UInt8 {
-		let result =  spritebuffer.draw(sprite: Sprite(
+		let result =  spritebuffer.draw(sprite: Sprite (
 			bytes : Array(pixels),
 			height: height,
 			x	    : x.value,
@@ -464,6 +464,8 @@ class Harness {
 
 class Chip8SystemDescription {
 	
+	// Chip8 base font glyphs
+	
 	static let Font :[UInt8] = [
 			0xF0, 0x90, 0x90, 0x90, 0xF0, //0
 			0x20, 0x60, 0x20, 0x20, 0x70, //1
@@ -484,9 +486,22 @@ class Chip8SystemDescription {
 	]
 	
 	
-	static let EmulatorCore : [UInt8:(Machine) throws -> Void] = [
+	// DSL based functional description of the Chip8 core.
+	// we attempt to retrieve a function based on the op code and if found
+	// it is executed by passing in a machine context. The DSL API operates
+	// largely on the machine context. In many cases entorely so.
+	// If there are further sub instructions based on the final nibble/byte
+	// of the opcode, an inner lookup function is executed with the same machine
+	// machine context.
+	// If no match for the instruction is found, an error is thrown.
+	//
+	// The swift type checker got really pissed at me for doing this,
 	
 	
+	
+	static let EmulatorCore : [UInt8 : (Machine) throws -> Void] = [
+	
+		
 			0x1 : { try
 							$0.pc.jmp($0.opcode.address) },
 			
@@ -568,11 +583,13 @@ class Chip8SystemDescription {
 								0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
 								0x29: { $0.memoryindex.load( $0.register[$0.opcode.x] * 5)},
 								0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
+								
 								0x55: {
 									for idx in 0...$0.opcode.x {
 										$0.memory.load($0.memoryindex + idx, $0.register[idx])
 									}
 								},
+								
 								0x65: {
 									for idx in 0...$0.opcode.x {
 										$0.register[idx].load( $0.memory[$0.memoryindex + idx] )
