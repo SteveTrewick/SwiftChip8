@@ -105,27 +105,27 @@ class Register : Equatable {
 	}
 	
 	
-	static func ==(lhs: Register, rhs: UInt8) -> Bool {
+	static func ==(lhs: Register, rhs: UInt8) -> Bool {  // should probably be byte
 		return lhs.value == rhs
 	}
 	
-	static func !=(lhs: Register, rhs: UInt8) -> Bool {
+	static func !=(lhs: Register, rhs: UInt8) -> Bool {  // should pobably be byte
 		return lhs.value != rhs
 	}
 	
 	
-	static func +=(lhs: Register, rhs: UInt8)  {
+	static func +=(lhs: Register, rhs: UInt8)  {        // should probably be byte
 		lhs.value += rhs
 	}
 
 	
-	static func +(lhs: UInt16, rhs: Register) -> UInt16 {
+	static func +(lhs: UInt16, rhs: Register) -> UInt16 {  // should probably be address
 		return lhs + UInt16(rhs.value)
 	}
 
-	static func *(lhs: Register, rhs: UInt16) -> UInt16 {
-		return UInt16(lhs.value) + rhs
-	}
+	static func *(lhs: Register, rhs: UInt16) -> UInt16 {  // wut?
+		return UInt16(lhs.value) + rhs                       // fails if I take this out : $0.register[$0.opcode.x].load( $0.delaytimer )
+	}                                                      // wtaf?
 }
 
 
@@ -205,10 +205,10 @@ class MemoryIndex {
 	func add(_ register:Register) {
 		pointer += UInt16(register.value)
 	}
-	static func +(lhs: MemoryIndex, rhs:UInt8) -> Int {
+	static func +(lhs: MemoryIndex, rhs: UInt8) -> Int {  // should probably be byte
 		return Int(lhs.pointer) + Int(rhs)
 	}
-	static func ..<(lhs:MemoryIndex, rhs:Int) -> Range<Int> {
+	static func ..<(lhs:MemoryIndex, rhs:Int) -> Range<Int> {  // necessary
 		return Int(lhs.pointer)..<rhs
 	}
 }
@@ -270,12 +270,18 @@ class Machine {
 	let delaytimer   = Timer()
 	let soundtimer   = Timer()
 
+
+	// doing these in line made the swift type checker very cross
 	func sprite(pixels: Slice<Memory>, height:UInt8, x: UInt8, y:UInt8) {
 		
 	}
 	
 	func bcd(_ byte: UInt8) -> [UInt8] {
 		return [byte / 100, (byte / 10) % 10, byte % 10]
+	}
+	
+	func waitkey(_ byte: UInt8) {
+		
 	}
 
 }
@@ -379,7 +385,7 @@ let description2 : [UInt8:(Machine) throws -> Void] = [
 
 	0xf : { try [
 						0x07: { $0.register[$0.opcode.x].load( $0.delaytimer ) },
-						//0x0a: // key wait, patch later
+						0x0a: { $0.waitkey($0.opcode.x)},
 						0x15: { $0.delaytimer.load ( $0.register[$0.opcode.x] )},
 						0x18: { $0.soundtimer.load ( $0.register[$0.opcode.x] )},
 						0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
