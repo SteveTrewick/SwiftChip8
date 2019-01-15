@@ -28,7 +28,7 @@ extension BitCollection : Sequence {
 	
 	struct BitCollectionIteraror : IteratorProtocol {
 		
-		private let value:T
+		private let value : T
 		private var shift = Int(T.bitWidth) - 1
 		
 		init(value:T) { self.value = value }
@@ -61,7 +61,7 @@ class Register : Equatable {
 	}
 	
 	
-	func load(_ value:UInt8) {
+	func load(_ value: UInt8) {
 		self.value    = value
 		self.overflow = 0
 	}
@@ -135,9 +135,9 @@ class ProgramCounter {
 	let step   = UInt16(2)
 	var stack  = Stack<UInt16>()
 	
-	var pointer:UInt16 = 0x0200
+	var pointer: UInt16 = 0x0200
 	
-	func jmp(_ address:UInt16) { self.pointer = address }
+	func jmp(_ address: UInt16) { self.pointer = address }
 	
 	func push() {
 		stack.push(pointer + step)
@@ -148,7 +148,7 @@ class ProgramCounter {
 		pointer = ret
 	}
 	
-	func skip(_ cond:Bool) {
+	func skip(_ cond: Bool) {
 		pointer += step * (cond ? 2 : 1)
 	}
 	
@@ -159,7 +159,7 @@ class ProgramCounter {
 }
 
 class Registers {
-	var values = [Register](repeating:Register(value: 0), count: 0xf)
+	var values = [Register](repeating: Register(value: 0), count: 0xf)
 	
 	subscript(_ index: UInt8) -> Register {
 	
@@ -178,7 +178,7 @@ class Keys {
 		get { return values[Int(register.value)] }
 	}
 	
-	subscript(_ hexkey:UInt8) -> Bool {
+	subscript(_ hexkey: UInt8) -> Bool {
 		get {return values[Int(hexkey)]}
 		set { values[Int(hexkey)] = newValue }
 	}
@@ -198,23 +198,23 @@ struct Opcode {
 
 
 class MemoryIndex {
-	var pointer:UInt16 = 0x0000
+	var pointer: UInt16 = 0x0000
 	func load(_ offset: UInt16) {
 		pointer = offset
 	}
-	func add(_ register:Register) {
+	func add(_ register: Register) {
 		pointer += UInt16(register.value)
 	}
 	static func +(lhs: MemoryIndex, rhs: UInt8) -> Int {  // should probably be byte
 		return Int(lhs.pointer) + Int(rhs)
 	}
-	static func ..<(lhs:MemoryIndex, rhs:Int) -> Range<Int> {  // necessary
+	static func ..<(lhs: MemoryIndex, rhs: Int) -> Range<Int> {  // necessary
 		return Int(lhs.pointer)..<rhs
 	}
 }
 
 class Timer {
-	var count:UInt8 = 0x00
+	var count: UInt8 = 0x00
 	func load(_ register:Register) {
 		count = register.value
 	}
@@ -261,14 +261,14 @@ class Memory : Collection {
 
 class Machine {
 	
-	let register = Registers()
-	let memory  =  Memory()
-	let memoryindex   = MemoryIndex()
-	let pc   = ProgramCounter()
-	var opcode   = Opcode(word:0x0000)
-	let key  = Keys()
-	let delaytimer   = Timer()
-	let soundtimer   = Timer()
+	let register    = Registers()
+	let memory      = Memory()
+	let memoryindex = MemoryIndex()
+	let pc          = ProgramCounter()
+	var opcode      = Opcode(word: 0x0000)
+	let key         = Keys()
+	let delaytimer  = Timer()
+	let soundtimer  = Timer()
 
 
 	// doing these in line made the swift type checker very cross
@@ -286,34 +286,9 @@ class Machine {
 
 }
 
+enum Bad : Error { case egg }
 
-
-enum Bad : Error {
-	case egg, biscuit
-}
-
-let testdec : [UInt8:(Machine) throws -> Void] = [
-	0x8: { try [                     // that syntax even looks good.
-			0x5 : {_ in print("yay")},
-			0x6 : {_ in print("woo") }
-		
-		][$0.opcode.nibble, default: {_ in throw Bad.egg} ]($0)
-	}
-]
-// oh yes, yes we can do that
-// ok, so you CAN do that, but then what about the case where the subcode is not recognised?
-// tricky.
-
-// BWAHAHAHAHAHAHAHAAHAAAAAA I am fucking leet today.
-
-let mac = Machine()
-mac.opcode = Opcode(word: 0x8357)
-//try testdec[0x8]?(mac)
-//
-
-// ok, rather than fuck it all up and have to revert, lets do a copy ...
-
-let description2 : [UInt8:(Machine) throws -> Void] = [
+let description : [UInt8:(Machine) throws -> Void] = [
 	0x1 : { $0.pc.jmp($0.opcode.address) },
 	
 	0x2 : { $0.pc.push()
@@ -407,104 +382,5 @@ let description2 : [UInt8:(Machine) throws -> Void] = [
 				}
 ]
 
-// ooooooooooooh yeaaaaaaaahhhhhhhhh
 
 
-class Stuff : Collection {
-	
-	func index(after i: Int) -> Int {
-		return i + 1
-	}
-	
-	var stash = [UInt8](repeating:0x00, count:100)
-	
-	typealias Index   = Int
-	typealias Element = UInt8
-	
-	var startIndex:Index { return 0 }
-	var endIndex  :Index { return stash.count }
-	
-	subscript(position: Index) -> Element {
-		get {
-			precondition( position < stash.count )
-			return stash[position]
-		}
-		set(value) {
-			stash[position] = value
-		}
-	}
-}
-
-let stuff = Stuff()
-for i in 0..<90 { stuff[i] = UInt8(i) }
-
-let slicey = stuff[5..<15]
-//print(slicey)
-
-func munchy(_ slice:Slice<Stuff>) {
-	let x = Array(slice)
-	print(x)
-}
-
-munchy(slicey)
-
-// ok, we should be able to use that for the memory and then lift a bunch of bytes
-//
-
-slicey.forEach { pie in print(pie) } // should auto array the fecker?
-// yup
-// how about
-
-stuff[0..<23].forEach{ pie in print("mm pie \(pie)") }
-// yeah, thats working it.
-
-// sooo, the difficulty comes where we arent using ints. because all indexes are ints, basically
-// so we probably need to surface them more
-
-
-//class Stuff16 : Collection {
-//
-//	func index(after i: UInt16) -> UInt16 {
-//		return i + 1
-//	}
-//
-//	var stash = [UInt8](repeating:0x00, count:100)
-//
-//	typealias Index   = UInt16
-//	typealias Element = UInt8
-//
-//	var startIndex:Index { return 0 }
-//	var endIndex  :Index { return stash.count }
-//
-//	subscript(position: Index) -> Element {
-//		get {
-//			precondition( position < stash.count )
-//			return stash[Int(position)]
-//		}
-//		set(value) {
-//			stash[position] = value
-//		}
-//	}
-//}
-
-
-// another quick test ...
-class Buffer {
-	let width    = 64
-	let height   = 32
-	
-	var contents = ContiguousArray<UInt8>(repeating: 0x00, count: 64 * 32)
-	
-}
-stuff[0..<5].forEach { s in
-	print("\(s)")
-}
-
-let test : (Machine) -> Void = {
-	$0.sprite(
-		pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
-		height: $0.opcode.nibble,
-		x     : $0.opcode.x,
-		y     : $0.opcode.y
-	)
-}
