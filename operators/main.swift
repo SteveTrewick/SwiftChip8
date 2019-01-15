@@ -375,7 +375,8 @@ class Machine {
 	let delaytimer   = Timer()
 	let soundtimer   = Timer()
 	let spritebuffer = SpriteBuffer(width: 64, height: 32)
-
+	var halted       = false
+	
 	// doing these in line made the swift type checker very cross
 	func rendersprite(pixels: Slice<Memory>, height:UInt8, x: Register, y: Register) -> UInt8 {
 		let result =  spritebuffer.draw(sprite: Sprite(
@@ -608,3 +609,8 @@ catch {
 // back up when something is wrong, including the loop halt
 // so let's start by setting up a proper error and a handler
 // to just print some stuff out
+
+// ok, next.
+
+// need a better emu loop. Timer. Wait for keys, etc.
+// lets put a halt flag in there.
