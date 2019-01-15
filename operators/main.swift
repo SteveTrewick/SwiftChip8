@@ -205,8 +205,11 @@ class MemoryIndex {
 	func add(_ register:Register) {
 		pointer += UInt16(register.value)
 	}
-	static func +(lhs:MemoryIndex, rhs:UInt8) -> UInt16 {
-		return lhs.pointer + UInt16(rhs)
+	static func +(lhs: MemoryIndex, rhs:UInt8) -> Int {
+		return Int(lhs.pointer) + Int(rhs)
+	}
+	static func ..<(lhs:MemoryIndex, rhs:Int) -> Range<Int> {
+		return Int(lhs.pointer)..<rhs
 	}
 }
 
@@ -217,17 +220,44 @@ class Timer {
 	}
 }
 
-class Memory {
+class Memory : Collection {
+	
+	
+	
+	typealias Index   = Int
+	typealias Element = UInt8
+	
 	var contents = ContiguousArray<UInt8>(repeating: 0x00, count: 4096)
-	func load( _ offset: UInt16, _ register:Register) {
-		contents[Int(offset)] = register.value
+	
+	func load( _ offset: Int, _ register:Register) {
+		contents[offset] = register.value
 	}
-	subscript(_ index:UInt16) -> UInt8 {
-		get {
-			return contents[Int(index)]
+
+	func load( _ bytes:[UInt8], _ index:MemoryIndex) {
+		for (offset, byte) in bytes.enumerated() {
+			contents[Int(index.pointer) + offset] = byte
 		}
 	}
+	
+	subscript(position: Index) -> Element {
+		get {
+			precondition( position < contents.count )
+			return contents[position]
+		}
+		set(value) {
+			contents[position] = value
+		}
+	}
+	
+	var startIndex:Index { return 0 }
+	var endIndex  :Index { return contents.count }
+	func index(after i: Int) -> Int {
+		return i + 1
+	}
+	// ok, we can slice and dice that'n now.
 }
+
+
 
 class Machine {
 	
@@ -239,6 +269,14 @@ class Machine {
 	let key  = Keys()
 	let delaytimer   = Timer()
 	let soundtimer   = Timer()
+
+	func sprite(pixels: Slice<Memory>, height:UInt8, x: UInt8, y:UInt8) {
+		
+	}
+	
+	func bcd(_ byte: UInt8) -> [UInt8] {
+		return [byte / 100, (byte / 10) % 10, byte % 10]
+	}
 
 }
 
@@ -349,8 +387,8 @@ let testdec : [UInt8:(Machine) throws -> Void] = [
 
 let mac = Machine()
 mac.opcode = Opcode(word: 0x8357)
-try testdec[0x8]?(mac)
-
+//try testdec[0x8]?(mac)
+//
 
 // ok, rather than fuck it all up and have to revert, lets do a copy ...
 
@@ -408,7 +446,14 @@ let description2 : [UInt8:(Machine) throws -> Void] = [
 	
 	0xb : { $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
 	
-	//0xd // we'll come back for this after
+
+	0xd: {	$0.sprite (
+						pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
+						height: $0.opcode.nibble,
+						x     : $0.opcode.x,
+						y     : $0.opcode.y
+					)
+			 },
 	
 	0xe : { try [
 						0x9e: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == true  )},
@@ -419,11 +464,12 @@ let description2 : [UInt8:(Machine) throws -> Void] = [
 
 	0xf : { try [
 						0x07: { $0.register[$0.opcode.x].load( $0.delaytimer ) },
+						//0x0a: // key wait, patch later
 						0x15: { $0.delaytimer.load ( $0.register[$0.opcode.x] )},
 						0x18: { $0.soundtimer.load ( $0.register[$0.opcode.x] )},
 						0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
 						0x29: { $0.memoryindex.load( $0.register[$0.opcode.x] * 5)},
-		
+						0x33: { $0.memory.load     ( $0.bcd($0.opcode.x), $0.memoryindex ) },
 						0x55: {
 							for idx in 0...$0.opcode.x {
 								$0.memory.load($0.memoryindex + idx, $0.register[idx])
@@ -441,3 +487,103 @@ let description2 : [UInt8:(Machine) throws -> Void] = [
 ]
 
 // ooooooooooooh yeaaaaaaaahhhhhhhhh
+
+
+class Stuff : Collection {
+	
+	func index(after i: Int) -> Int {
+		return i + 1
+	}
+	
+	var stash = [UInt8](repeating:0x00, count:100)
+	
+	typealias Index   = Int
+	typealias Element = UInt8
+	
+	var startIndex:Index { return 0 }
+	var endIndex  :Index { return stash.count }
+	
+	subscript(position: Index) -> Element {
+		get {
+			precondition( position < stash.count )
+			return stash[position]
+		}
+		set(value) {
+			stash[position] = value
+		}
+	}
+}
+
+let stuff = Stuff()
+for i in 0..<90 { stuff[i] = UInt8(i) }
+
+let slicey = stuff[5..<15]
+//print(slicey)
+
+func munchy(_ slice:Slice<Stuff>) {
+	let x = Array(slice)
+	print(x)
+}
+
+munchy(slicey)
+
+// ok, we should be able to use that for the memory and then lift a bunch of bytes
+//
+
+slicey.forEach { pie in print(pie) } // should auto array the fecker?
+// yup
+// how about
+
+stuff[0..<23].forEach{ pie in print("mm pie \(pie)") }
+// yeah, thats working it.
+
+// sooo, the difficulty comes where we arent using ints. because all indexes are ints, basically
+// so we probably need to surface them more
+
+
+//class Stuff16 : Collection {
+//
+//	func index(after i: UInt16) -> UInt16 {
+//		return i + 1
+//	}
+//
+//	var stash = [UInt8](repeating:0x00, count:100)
+//
+//	typealias Index   = UInt16
+//	typealias Element = UInt8
+//
+//	var startIndex:Index { return 0 }
+//	var endIndex  :Index { return stash.count }
+//
+//	subscript(position: Index) -> Element {
+//		get {
+//			precondition( position < stash.count )
+//			return stash[Int(position)]
+//		}
+//		set(value) {
+//			stash[position] = value
+//		}
+//	}
+//}
+
+
+// another quick test ...
+class Buffer {
+	let width    = 64
+	let height   = 32
+	
+	var contents = ContiguousArray<UInt8>(repeating: 0x00, count: 64 * 32)
+	
+}
+stuff[0..<5].forEach { s in
+	print("\(s)")
+}
+
+let test : (Machine) -> Void = {
+	$0.sprite(
+		pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
+		height: $0.opcode.nibble,
+		x     : $0.opcode.x,
+		y     : $0.opcode.y
+	)
+}
