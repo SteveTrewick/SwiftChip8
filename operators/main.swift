@@ -606,5 +606,5 @@ catch {
 
 // for a start, non exity error handling, so we need to signal
 // back up when something is wrong, including the loop halt
-// so lets staty by setting up a proper error and a handler
+// so let's start by setting up a proper error and a handler
 // to just print some stuff out
