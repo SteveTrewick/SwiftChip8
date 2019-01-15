@@ -81,6 +81,10 @@ class Register : Equatable {
 		lhs.value |= rhs.value
 	}
 	
+	static func ^=(lhs: Register, rhs: Register) {
+		lhs.value ^= rhs.value
+	}
+	
 	static func &=(lhs: Register, rhs: Register) {
 		lhs.value &= rhs.value
 	}
@@ -92,9 +96,12 @@ class Register : Equatable {
 	}
 	
 	static func -=(lhs: Register, rhs: Register) {
+		print("lhs: \(lhs.value), rhs:\(rhs.value)")
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
+		print("result: \(result), overflow: \(overflow)")
 		lhs.value = result
 		lhs.overflow = overflow ? 0 : 1
+		print("lhs.value: \(lhs.value), lhs.overflow: \(lhs.overflow)")
 	}
 	
 	static func <<(lhs: Register, rhs: Int) -> UInt8 {
@@ -137,7 +144,13 @@ class ProgramCounter {
 	
 	var pointer: UInt16 = 0x0200
 	
-	func jmp(_ address: UInt16) { self.pointer = address }
+	func jmp(_ address: UInt16) {
+		if address == pointer {
+			print("loop halt")
+			exit(0)
+		}
+		self.pointer = address
+	}
 	
 	func push() {
 		stack.push(pointer + step)
@@ -159,12 +172,29 @@ class ProgramCounter {
 }
 
 class Registers {
-	var values = [Register](repeating: Register(value: 0), count: 0xf)
+	
+	// see what you did there? that's the same register 16 times.
+	var values : [Register]//(repeating: Register(value: 0), count: 16)
+	
+	init() {
+		values = [Register]()
+		for _ in 0...15 {
+			values.append(Register(value: 0x00))
+		}
+	}
 	
 	subscript(_ index: UInt8) -> Register {
 	
-		get { return values[Int(index)]     }
-		set { values[Int(index)] = newValue }
+		get {
+			//print("reg get \(index)")
+			//for (i,reg) in values.enumerated() { print("\(String(format:"%02x",i)) \(String(format:"%02x", reg.value))") }
+			return values[Int(index)]
+		}
+		set {
+			//print("reg set \(index)")
+			//for (i,reg) in values.enumerated() { print("\(String(format:"%02x",i)) \(String(format:"%02x", reg.value))") }
+			values[Int(index)] = newValue
+		}
 	}
 }
 
@@ -236,6 +266,12 @@ class Memory : Collection {
 	func load( _ bytes:[UInt8], _ index:MemoryIndex) {
 		for (offset, byte) in bytes.enumerated() {
 			contents[Int(index.pointer) + offset] = byte
+		}
+	}
+	
+	func load(romdata: [UInt8], offset: UInt16) {
+		for (idx, byte) in romdata.enumerated() {
+			contents[Int(offset) + idx] = byte
 		}
 	}
 	
@@ -342,16 +378,19 @@ class Machine {
 	let spritebuffer = SpriteBuffer(width: 64, height: 32)
 
 	// doing these in line made the swift type checker very cross
-	func rendersprite(pixels: Slice<Memory>, height:UInt8, x: UInt8, y:UInt8) -> UInt8 {
-		return spritebuffer.draw(sprite: Sprite(
+	func rendersprite(pixels: Slice<Memory>, height:UInt8, x: Register, y: Register) -> UInt8 {
+		let result =  spritebuffer.draw(sprite: Sprite(
 			bytes : Array(pixels),
 			height: height,
-			x	    : x,
-			y     : y
+			x	    : x.value,
+			y     : y.value
 		))
+		spritebuffer.dumpFormatted()
+		return result
 	}
 	
-	func bcd(_ byte: UInt8) -> [UInt8] {
+	func bcd(_ register: Register) -> [UInt8] {
+		let byte = register.value
 		return [byte / 100, (byte / 10) % 10, byte % 10]
 	}
 	
@@ -387,9 +426,9 @@ let description : [UInt8:(Machine) throws -> Void] = [
 		
 		0x8: { try [
 							0x0 : { $0.register[$0.opcode.x]  = $0.register[$0.opcode.y] },
-							0x0 : { $0.register[$0.opcode.x]  = $0.register[$0.opcode.y] },
 							0x1 : { $0.register[$0.opcode.x] |= $0.register[$0.opcode.y] },
-							0x3 : { $0.register[$0.opcode.x] &= $0.register[$0.opcode.y] },
+							0x2 : { $0.register[$0.opcode.x] &= $0.register[$0.opcode.y] },
+							0x3 : { $0.register[$0.opcode.x] ^= $0.register[$0.opcode.y] },
 							
 							0x4 : { $0.register[$0.opcode.x] += $0.register[$0.opcode.y]
 											$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
@@ -397,14 +436,16 @@ let description : [UInt8:(Machine) throws -> Void] = [
 							0x5 : { $0.register[$0.opcode.x] -= $0.register[$0.opcode.y]
 											$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
 							},
-							0x6 : { $0.register[0xf        ].load($0.register[$0.opcode.y].bits[8])
-											$0.register[$0.opcode.x].load($0.register[$0.opcode.y] >> 1)
+							0x6 : {	$0.register[0xf        ].load(0)
+											$0.register[0xf        ].load($0.register[$0.opcode.x].bits[7])
+											$0.register[$0.opcode.x].load($0.register[$0.opcode.x] >> 1)
 							},
 							0x7 : { $0.register[$0.opcode.y] -= $0.register[$0.opcode.x]
 											$0.register[0xf        ].load($0.register[$0.opcode.y].overflow)
 							},
-							0xe : { $0.register[0xf        ].load($0.register[$0.opcode.y].bits[1])
-											$0.register[$0.opcode.x].load($0.register[$0.opcode.y] << 1)
+							0xe : {	$0.register[0xf        ].load(0)
+											$0.register[0xf        ].load($0.register[$0.opcode.x].bits[0])
+											$0.register[$0.opcode.x].load($0.register[$0.opcode.x] << 1)
 							}
 			
 						][$0.opcode.nibble, default: { machine in throw Bad.egg }]($0)
@@ -424,9 +465,10 @@ let description : [UInt8:(Machine) throws -> Void] = [
 						$0.register[0xf].load( $0.rendersprite (
 							pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
 							height: $0.opcode.nibble,
-							x     : $0.opcode.x,
-							y     : $0.opcode.y
+							x     : $0.register[$0.opcode.x],
+							y     : $0.register[$0.opcode.y]
 						))
+						$0.pc.increment()
 				 },
 		
 		0xe : { try [
@@ -443,7 +485,7 @@ let description : [UInt8:(Machine) throws -> Void] = [
 							0x18: { $0.soundtimer.load ( $0.register[$0.opcode.x] )},
 							0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
 							0x29: { $0.memoryindex.load( $0.register[$0.opcode.x] * 5)},
-							0x33: { $0.memory.load     ( $0.bcd($0.opcode.x), $0.memoryindex ) },
+							0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
 							0x55: {
 								for idx in 0...$0.opcode.x {
 									$0.memory.load($0.memoryindex + idx, $0.register[idx])
@@ -462,3 +504,86 @@ let description : [UInt8:(Machine) throws -> Void] = [
 
 
 
+// ok, in theory we should be able to put this in a harness and run it some, so
+// lets find out.
+
+
+class Harness {
+	
+	let core    : [UInt8 : (Machine) throws -> Void]
+	let machine : Machine
+	
+	init(core: [UInt8 : (Machine) throws -> Void], machine: Machine) {
+		self.core    = core
+		self.machine = machine
+	}
+	
+	
+	func emulate() {
+		while true {
+			let hi         = machine.memory[Int(machine.pc.pointer)    ]
+			let lo         = machine.memory[Int(machine.pc.pointer) + 1]
+			let opcode     = (UInt16(hi) << 8) + UInt16(lo)
+			machine.opcode = Opcode(word: opcode)
+			print("\(String(format: "%04x", machine.pc.pointer)) \(String(format: "%04x", opcode))")
+			if machine.opcode.word == 0x00e0 {
+				machine.spritebuffer.cls()
+				machine.pc.increment()
+				continue
+			}
+			
+			if machine.opcode.word == 0x0ee {
+				machine.pc.stack.pop()
+				continue
+			}
+			
+			if let execute = core[machine.opcode.code] {
+				do {
+					try execute(machine)
+				}
+				catch {
+					print(error)
+					exit(0)
+				}
+			}
+			else {
+				print("bad instruction")
+				exit(0)
+			}
+		}
+	
+	}
+}
+
+
+// ok, lets load up a test rom then
+let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("BC_test.ch8")
+guard let data = try? Data(contentsOf: url) else { fatalError() }
+
+// and of course the font data ...
+let chip8font:[UInt8] = [
+	0xF0, 0x90, 0x90, 0x90, 0xF0, //0
+	0x20, 0x60, 0x20, 0x20, 0x70, //1
+	0xF0, 0x10, 0xF0, 0x80, 0xF0, //2
+	0xF0, 0x10, 0xF0, 0x10, 0xF0, //3
+	0x90, 0x90, 0xF0, 0x10, 0x10, //4
+	0xF0, 0x80, 0xF0, 0x10, 0xF0, //5
+	0xF0, 0x80, 0xF0, 0x90, 0xF0, //6
+	0xF0, 0x10, 0x20, 0x40, 0x40, //7
+	0xF0, 0x90, 0xF0, 0x90, 0xF0, //8
+	0xF0, 0x90, 0xF0, 0x10, 0xF0, //9
+	0xF0, 0x90, 0xF0, 0x90, 0x90, //A
+	0xE0, 0x90, 0xE0, 0x90, 0xE0, //B
+	0xF0, 0x80, 0x80, 0x80, 0xF0, //C
+	0xE0, 0x90, 0x90, 0x90, 0xE0, //D
+	0xF0, 0x80, 0xF0, 0x80, 0xF0, //E
+	0xF0, 0x80, 0xF0, 0x80, 0x80  //F
+]
+
+let machine = Machine()
+machine.memory.load(romdata: chip8font,   offset: 0x000)
+machine.memory.load(romdata: Array(data), offset: 0x200)
+machine.pc.pointer = 0x200
+
+let harness = Harness(core: description, machine: machine)
+harness.emulate()
