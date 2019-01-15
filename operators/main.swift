@@ -272,18 +272,18 @@ let description : [UInt8:(Machine)->Void] = [
 						case 0x3 : $0.register[$0.opcode.x] &= $0.register[$0.opcode.y]
 
 						case 0x4 : $0.register[$0.opcode.x] += $0.register[$0.opcode.y]
-						           $0.register[0xf    ].load($0.register[$0.opcode.x].overflow)
+						           $0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
 
 						case 0x5 : $0.register[$0.opcode.x] -= $0.register[$0.opcode.y]
-						           $0.register[0xf    ].load($0.register[$0.opcode.x].overflow)
+						           $0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
 
-						case 0x6 : $0.register[0xf    ].load($0.register[$0.opcode.y].bits[8])
+						case 0x6 : $0.register[0xf        ].load($0.register[$0.opcode.y].bits[8])
 						           $0.register[$0.opcode.x].load($0.register[$0.opcode.y] >> 1)
 		
 						case 0x7 : $0.register[$0.opcode.y] -= $0.register[$0.opcode.x]
-						           $0.register[0xf    ].load($0.register[$0.opcode.y].overflow)
+						           $0.register[0xf        ].load($0.register[$0.opcode.y].overflow)
 		
-						case 0xe : $0.register[0xf    ].load($0.register[$0.opcode.y].bits[1])
+						case 0xe : $0.register[0xf        ].load($0.register[$0.opcode.y].bits[1])
 						           $0.register[$0.opcode.x].load($0.register[$0.opcode.y] << 1)
 		
 						default  : fatalError() // add some nice error handling stuff pls.
@@ -328,3 +328,26 @@ let description : [UInt8:(Machine)->Void] = [
 
 // ok, so, not only does that turn out to be viable, it's also pretty nice to look at
 // and it was a joy to write as well! So that's nice.
+
+enum Bad : Error {
+	case egg, biscuit
+}
+
+let testdec : [UInt8:(Machine) throws -> Void] = [
+	0x8: { try [                     // that syntax even looks good.
+			0x5 : {_ in print("yay")},
+			0x6 : {_ in print("woo") }
+		
+		][$0.opcode.nibble, default: {_ in throw Bad.egg} ]($0)
+	}
+]
+// oh yes, yes we can do that
+// ok, so you CAN do that, but then what about the case where the subcode is not recognised?
+// tricky.
+
+// BWAHAHAHAHAHAHAHAAHAAAAAA I am fucking leet today.
+
+let mac = Machine()
+mac.opcode = Opcode(word: 0x8357)
+try testdec[0x8]?(mac)
+
