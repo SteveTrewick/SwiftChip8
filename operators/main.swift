@@ -432,6 +432,7 @@ class Harness {
 			let hi         = machine.memory[Int(machine.pc.pointer)    ]
 			let lo         = machine.memory[Int(machine.pc.pointer) + 1]
 			let opcode     = (UInt16(hi) << 8) + UInt16(lo)
+		
 			machine.opcode = Opcode(word: opcode)
 			
 			print("\(String(format: "%04x", machine.pc.pointer)) \(String(format: "%04x", opcode))")
@@ -446,6 +447,8 @@ class Harness {
 				try machine.pc.pop()
 				continue
 			}
+			
+			
 			guard let execute = core[machine.opcode.code] else {
 				throw EmulationError.badInstruction
 			}

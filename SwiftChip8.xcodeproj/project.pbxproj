@@ -34,6 +34,7 @@
 		AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */; };
 		AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281B21EF3E71002F7A9F /* MachineState.swift */; };
 		AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */; };
+		AA96282021EF44B5002F7A9F /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281F21EF44B5002F7A9F /* SystemClock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuffer.swift; sourceTree = "<group>"; };
 		AA96281B21EF3E71002F7A9F /* MachineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineState.swift; sourceTree = "<group>"; };
 		AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8Emulator.swift; sourceTree = "<group>"; };
+		AA96281F21EF44B5002F7A9F /* SystemClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemClock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 				AA96281B21EF3E71002F7A9F /* MachineState.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
+				AA96281F21EF44B5002F7A9F /* SystemClock.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */,
 				AA96280C21EF3B93002F7A9F /* EmulationError.swift in Sources */,
 				AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */,
+				AA96282021EF44B5002F7A9F /* SystemClock.swift in Sources */,
 				AA96281621EF3CF5002F7A9F /* Timer.swift in Sources */,
 				AA96281421EF3CC3002F7A9F /* MemoryIndex.swift in Sources */,
 			);
