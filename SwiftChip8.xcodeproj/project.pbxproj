@@ -21,6 +21,7 @@
 		AA9627F921EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */; };
 		AA96280421EF3A34002F7A9F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280321EF3A34002F7A9F /* Stack.swift */; };
+		AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280521EF3AC0002F7A9F /* BitCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		AA9627F421EF39A2002F7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip8SystemDescription.swift; sourceTree = "<group>"; };
 		AA96280321EF3A34002F7A9F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		AA96280521EF3AC0002F7A9F /* BitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
+				AA96280521EF3AC0002F7A9F /* BitCollection.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
@@ -494,6 +497,7 @@
 			files = (
 				AA96280421EF3A34002F7A9F /* Stack.swift in Sources */,
 				AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */,
+				AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
