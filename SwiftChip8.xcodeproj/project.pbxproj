@@ -23,6 +23,7 @@
 		AA96280421EF3A34002F7A9F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280321EF3A34002F7A9F /* Stack.swift */; };
 		AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280521EF3AC0002F7A9F /* BitCollection.swift */; };
 		AA96280821EF3AFC002F7A9F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280721EF3AFC002F7A9F /* Register.swift */; };
+		AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		AA96280321EF3A34002F7A9F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		AA96280521EF3AC0002F7A9F /* BitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitCollection.swift; sourceTree = "<group>"; };
 		AA96280721EF3AFC002F7A9F /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramCounter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
 				AA96280521EF3AC0002F7A9F /* BitCollection.swift */,
 				AA96280721EF3AFC002F7A9F /* Register.swift */,
+				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
@@ -501,6 +504,7 @@
 				AA96280421EF3A34002F7A9F /* Stack.swift in Sources */,
 				AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */,
 				AA96280821EF3AFC002F7A9F /* Register.swift in Sources */,
+				AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */,
 				AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
