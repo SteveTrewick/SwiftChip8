@@ -29,6 +29,9 @@ class ViewController: NSViewController {
 	let displayLink = DisplayLink()
 	var emulator    = SwiftChip8Emulator()
 	
+	@IBOutlet weak var imgview: NSImageView!
+	
+	
 	override func viewDidAppear() {
 		// ok, that's how we do that, then
 		// NB we can't get the screen/window untill viewDidAppear,
@@ -49,6 +52,7 @@ class ViewController: NSViewController {
 			displayLink.handler = { (link, now, out, flags, context) in
 				let fps = 1 / CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
 				do {
+					// right here is where we should update the display
 					try self.emulator.emulate(at: 500, fps: fps)
 				}
 				catch {
