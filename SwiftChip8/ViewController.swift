@@ -37,7 +37,7 @@ class ViewController: NSViewController {
 		// NB we can't get the screen/window untill viewDidAppear,
 		// didLoad will not cut it as they're not set yet.
 		
-		
+		return
 		let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("trip8.ch8")
 		guard let data = try? Data(contentsOf: url) else { fatalError() }
 		

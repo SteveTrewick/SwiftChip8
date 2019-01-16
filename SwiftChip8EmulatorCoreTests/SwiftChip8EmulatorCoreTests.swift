@@ -111,7 +111,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		machine.register[0xb].load(0xfe)
 		execute()
 		XCTAssert(machine.register[0xa] == 0xfe)
-		XCTAssert(machine.pc.pointer == 0x202)
+		XCTAssert(machine.pc.pointer    == 0x202)
 	}
 	
 	
