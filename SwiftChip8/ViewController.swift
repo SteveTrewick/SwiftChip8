@@ -52,7 +52,10 @@ class ViewController: NSViewController {
 			displayLink.handler = { (link, now, out, flags, context) in
 				let fps = 1 / CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
 				do {
-					// right here is where we should update the display
+					
+					let cgimage        = try self.emulator.render()
+					self.imgview.image = NSImage(cgImage: cgimage, size: NSSize(width: 640, height: 320))
+					
 					try self.emulator.emulate(at: 500, fps: fps)
 				}
 				catch {
