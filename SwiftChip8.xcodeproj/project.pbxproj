@@ -14,6 +14,11 @@
 		AA768E0721EDC0E90027A930 /* SwiftChip8Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA768E0621EDC0E90027A930 /* SwiftChip8Tests.swift */; };
 		AA768E1821EDC1040027A930 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA768E1721EDC1040027A930 /* main.swift */; };
 		AA9627DA21EE6BE4002F7A9F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9627D921EE6BE4002F7A9F /* main.swift */; };
+		AA9627EC21EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; };
+		AA9627F321EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9627F221EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift */; };
+		AA9627F521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA9627F821EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; };
+		AA9627F921EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,6 +28,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = AA768DEF21EDC0E70027A930;
 			remoteInfo = SwiftChip8;
+		};
+		AA9627ED21EF39A2002F7A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA768DE821EDC0E70027A930 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9627E221EF39A2002F7A9F;
+			remoteInfo = SwiftChip8EmulatorCore;
+		};
+		AA9627EF21EF39A2002F7A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA768DE821EDC0E70027A930 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA768DEF21EDC0E70027A930;
+			remoteInfo = SwiftChip8;
+		};
+		AA9627F621EF39A2002F7A9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA768DE821EDC0E70027A930 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA9627E221EF39A2002F7A9F;
+			remoteInfo = SwiftChip8EmulatorCore;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -45,6 +71,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		AA9627FD21EF39A2002F7A9F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AA9627F921EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +99,12 @@
 		AA768E1721EDC1040027A930 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		AA9627D721EE6BE4002F7A9F /* checks */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = checks; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9627D921EE6BE4002F7A9F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftChip8EmulatorCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftChip8EmulatorCore.h; sourceTree = "<group>"; };
+		AA9627E621EF39A2002F7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA9627EB21EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftChip8EmulatorCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA9627F221EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8EmulatorCoreTests.swift; sourceTree = "<group>"; };
+		AA9627F421EF39A2002F7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA9627F821EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +137,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA9627E021EF39A2002F7A9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9627E821EF39A2002F7A9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA9627EC21EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -103,6 +162,8 @@
 				AA768E0521EDC0E90027A930 /* SwiftChip8Tests */,
 				AA768E1621EDC1040027A930 /* operators */,
 				AA9627D821EE6BE4002F7A9F /* checks */,
+				AA9627E421EF39A2002F7A9F /* SwiftChip8EmulatorCore */,
+				AA9627F121EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests */,
 				AA768DF121EDC0E70027A930 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,6 +175,8 @@
 				AA768E0221EDC0E90027A930 /* SwiftChip8Tests.xctest */,
 				AA768E1521EDC1040027A930 /* operators */,
 				AA9627D721EE6BE4002F7A9F /* checks */,
+				AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */,
+				AA9627EB21EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,7 +219,36 @@
 			path = checks;
 			sourceTree = "<group>";
 		};
+		AA9627E421EF39A2002F7A9F /* SwiftChip8EmulatorCore */ = {
+			isa = PBXGroup;
+			children = (
+				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
+				AA9627E621EF39A2002F7A9F /* Info.plist */,
+			);
+			path = SwiftChip8EmulatorCore;
+			sourceTree = "<group>";
+		};
+		AA9627F121EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA9627F221EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift */,
+				AA9627F421EF39A2002F7A9F /* Info.plist */,
+			);
+			path = SwiftChip8EmulatorCoreTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AA9627DE21EF39A2002F7A9F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA9627F521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		AA768DEF21EDC0E70027A930 /* SwiftChip8 */ = {
@@ -166,10 +258,12 @@
 				AA768DEC21EDC0E70027A930 /* Sources */,
 				AA768DED21EDC0E70027A930 /* Frameworks */,
 				AA768DEE21EDC0E70027A930 /* Resources */,
+				AA9627FD21EF39A2002F7A9F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AA9627F721EF39A2002F7A9F /* PBXTargetDependency */,
 			);
 			name = SwiftChip8;
 			productName = SwiftChip8;
@@ -228,6 +322,43 @@
 			productReference = AA9627D721EE6BE4002F7A9F /* checks */;
 			productType = "com.apple.product-type.tool";
 		};
+		AA9627E221EF39A2002F7A9F /* SwiftChip8EmulatorCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA9627FA21EF39A2002F7A9F /* Build configuration list for PBXNativeTarget "SwiftChip8EmulatorCore" */;
+			buildPhases = (
+				AA9627DE21EF39A2002F7A9F /* Headers */,
+				AA9627DF21EF39A2002F7A9F /* Sources */,
+				AA9627E021EF39A2002F7A9F /* Frameworks */,
+				AA9627E121EF39A2002F7A9F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftChip8EmulatorCore;
+			productName = SwiftChip8EmulatorCore;
+			productReference = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AA9627EA21EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA9627FE21EF39A2002F7A9F /* Build configuration list for PBXNativeTarget "SwiftChip8EmulatorCoreTests" */;
+			buildPhases = (
+				AA9627E721EF39A2002F7A9F /* Sources */,
+				AA9627E821EF39A2002F7A9F /* Frameworks */,
+				AA9627E921EF39A2002F7A9F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA9627EE21EF39A2002F7A9F /* PBXTargetDependency */,
+				AA9627F021EF39A2002F7A9F /* PBXTargetDependency */,
+			);
+			name = SwiftChip8EmulatorCoreTests;
+			productName = SwiftChip8EmulatorCoreTests;
+			productReference = AA9627EB21EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -251,6 +382,13 @@
 					AA9627D621EE6BE4002F7A9F = {
 						CreatedOnToolsVersion = 10.1;
 					};
+					AA9627E221EF39A2002F7A9F = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					AA9627EA21EF39A2002F7A9F = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = AA768DEF21EDC0E70027A930;
+					};
 				};
 			};
 			buildConfigurationList = AA768DEB21EDC0E70027A930 /* Build configuration list for PBXProject "SwiftChip8" */;
@@ -270,6 +408,8 @@
 				AA768E0121EDC0E90027A930 /* SwiftChip8Tests */,
 				AA768E1421EDC1040027A930 /* operators */,
 				AA9627D621EE6BE4002F7A9F /* checks */,
+				AA9627E221EF39A2002F7A9F /* SwiftChip8EmulatorCore */,
+				AA9627EA21EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests */,
 			);
 		};
 /* End PBXProject section */
@@ -285,6 +425,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AA768E0021EDC0E90027A930 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9627E121EF39A2002F7A9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9627E921EF39A2002F7A9F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -327,6 +481,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA9627DF21EF39A2002F7A9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA9627E721EF39A2002F7A9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA9627F321EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -334,6 +503,21 @@
 			isa = PBXTargetDependency;
 			target = AA768DEF21EDC0E70027A930 /* SwiftChip8 */;
 			targetProxy = AA768E0321EDC0E90027A930 /* PBXContainerItemProxy */;
+		};
+		AA9627EE21EF39A2002F7A9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9627E221EF39A2002F7A9F /* SwiftChip8EmulatorCore */;
+			targetProxy = AA9627ED21EF39A2002F7A9F /* PBXContainerItemProxy */;
+		};
+		AA9627F021EF39A2002F7A9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA768DEF21EDC0E70027A930 /* SwiftChip8 */;
+			targetProxy = AA9627EF21EF39A2002F7A9F /* PBXContainerItemProxy */;
+		};
+		AA9627F721EF39A2002F7A9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA9627E221EF39A2002F7A9F /* SwiftChip8EmulatorCore */;
+			targetProxy = AA9627F621EF39A2002F7A9F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -584,6 +768,104 @@
 			};
 			name = Release;
 		};
+		AA9627FB21EF39A2002F7A9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 66Z9E6ABHK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = SwiftChip8EmulatorCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.enigmaticape.SwiftChip8EmulatorCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AA9627FC21EF39A2002F7A9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 66Z9E6ABHK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = SwiftChip8EmulatorCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.enigmaticape.SwiftChip8EmulatorCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AA9627FF21EF39A2002F7A9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 66Z9E6ABHK;
+				INFOPLIST_FILE = SwiftChip8EmulatorCoreTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.enigmaticape.SwiftChip8EmulatorCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftChip8.app/Contents/MacOS/SwiftChip8";
+			};
+			name = Debug;
+		};
+		AA96280021EF39A2002F7A9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 66Z9E6ABHK;
+				INFOPLIST_FILE = SwiftChip8EmulatorCoreTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.enigmaticape.SwiftChip8EmulatorCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftChip8.app/Contents/MacOS/SwiftChip8";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -628,6 +910,24 @@
 			buildConfigurations = (
 				AA9627DB21EE6BE4002F7A9F /* Debug */,
 				AA9627DC21EE6BE4002F7A9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA9627FA21EF39A2002F7A9F /* Build configuration list for PBXNativeTarget "SwiftChip8EmulatorCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA9627FB21EF39A2002F7A9F /* Debug */,
+				AA9627FC21EF39A2002F7A9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA9627FE21EF39A2002F7A9F /* Build configuration list for PBXNativeTarget "SwiftChip8EmulatorCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA9627FF21EF39A2002F7A9F /* Debug */,
+				AA96280021EF39A2002F7A9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -486,18 +486,6 @@ class Chip8SystemDescription {
 	]
 	
 	
-	// DSL based functional description of the Chip8 core.
-	// we attempt to retrieve a function based on the op code and if found
-	// it is executed by passing in a machine context. The DSL API operates
-	// largely on the machine context. In many cases entorely so.
-	// If there are further sub instructions based on the final nibble/byte
-	// of the opcode, an inner lookup function is executed with the same machine
-	// machine context.
-	// If no match for the instruction is found, an error is thrown.
-	//
-	// The swift type checker got really pissed at me for doing this,
-	
-	
 	
 	static let EmulatorCore : [UInt8 : (Machine) throws -> Void] = [
 	
