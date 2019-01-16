@@ -20,6 +20,7 @@
 		AA9627F821EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; };
 		AA9627F921EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */; };
+		AA96280421EF3A34002F7A9F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280321EF3A34002F7A9F /* Stack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		AA9627F221EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8EmulatorCoreTests.swift; sourceTree = "<group>"; };
 		AA9627F421EF39A2002F7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip8SystemDescription.swift; sourceTree = "<group>"; };
+		AA96280321EF3A34002F7A9F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
+				AA96280321EF3A34002F7A9F /* Stack.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA96280421EF3A34002F7A9F /* Stack.swift in Sources */,
 				AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
