@@ -38,7 +38,7 @@ class ViewController: NSViewController {
 		// didLoad will not cut it as they're not set yet.
 		
 		
-		let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("BC_test.ch8")
+		let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("trip8.ch8")
 		guard let data = try? Data(contentsOf: url) else { fatalError() }
 		
 		
@@ -54,9 +54,10 @@ class ViewController: NSViewController {
 				do {
 					
 					let cgimage        = try self.emulator.render()
-					self.imgview.image = NSImage(cgImage: cgimage, size: NSSize(width: 640, height: 320))
-					
-					try self.emulator.emulate(at: 500, fps: fps)
+					DispatchQueue.main.async {
+						self.imgview.image = NSImage(cgImage: cgimage, size: NSSize(width: 640, height: 320))
+					}
+					try self.emulator.emulate(at: 1500, fps: fps)
 				}
 				catch {
 					CVDisplayLinkStop(link)
