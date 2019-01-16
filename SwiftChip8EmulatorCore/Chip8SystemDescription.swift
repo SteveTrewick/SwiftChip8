@@ -28,7 +28,14 @@ class Chip8SystemDescription {
 	
 	static let EmulatorCore : [UInt8 : (MachineState) throws -> Void] = [
 	
-		
+			0x0 : { try [
+								0xe0 : { $0.spritebuffer.cls()
+												 $0.pc.increment()
+											 },
+								0xee : { try $0.pc.pop() }
+				
+							][$0.opcode.byte, default: { _ in throw EmulationError.badInstruction }]($0)
+						},
 			0x1 : { try
 							$0.pc.jmp($0.opcode.address) },
 			
