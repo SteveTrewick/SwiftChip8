@@ -31,6 +31,7 @@
 		AA96281421EF3CC3002F7A9F /* MemoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281321EF3CC3002F7A9F /* MemoryIndex.swift */; };
 		AA96281621EF3CF5002F7A9F /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281521EF3CF5002F7A9F /* Timer.swift */; };
 		AA96281821EF3D69002F7A9F /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281721EF3D69002F7A9F /* Memory.swift */; };
+		AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		AA96281321EF3CC3002F7A9F /* MemoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryIndex.swift; sourceTree = "<group>"; };
 		AA96281521EF3CF5002F7A9F /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		AA96281721EF3D69002F7A9F /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
+		AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuffer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				AA96281521EF3CF5002F7A9F /* Timer.swift */,
 				AA96280F21EF3C5D002F7A9F /* Keys.swift */,
 				AA96281721EF3D69002F7A9F /* Memory.swift */,
+				AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
@@ -526,6 +529,7 @@
 				AA96281221EF3C99002F7A9F /* Opcode.swift in Sources */,
 				AA96280421EF3A34002F7A9F /* Stack.swift in Sources */,
 				AA96281021EF3C5D002F7A9F /* Keys.swift in Sources */,
+				AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */,
 				AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */,
 				AA96280821EF3AFC002F7A9F /* Register.swift in Sources */,
 				AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */,
