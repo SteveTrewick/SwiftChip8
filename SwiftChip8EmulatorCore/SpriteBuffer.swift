@@ -52,7 +52,7 @@ class SpriteBuffer {
 		for (r, row) in sprite.bytes.map(unpack).enumerated() {
 			for (c, column) in row.enumerated() {
 			
-				let index = (sprite.x + c + ((sprite.y + r) * 64)) % 2048
+				let index = ((sprite.x + c) + ((sprite.y + r) * 64)) % 2048
 				if contents[index] == 1 && (contents[index] ^ column) == 0 { collision = 1 }  // check collision
 				contents[index] ^= column
 			}
