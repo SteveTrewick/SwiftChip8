@@ -26,7 +26,7 @@ public class MachineState {
 			x	    : x.value,
 			y     : y.value
 		))
-		spritebuffer.dumpFormatted()
+		//spritebuffer.dumpFormatted()
 		return result
 	}
 	
@@ -37,6 +37,10 @@ public class MachineState {
 	
 	func waitkey(_ byte: UInt8) {
 		
+	}
+	
+	func rand(_ byte: UInt8) -> UInt8 {
+		return UInt8.random(in: 0...255) & byte
 	}
 
 }
