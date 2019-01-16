@@ -32,7 +32,7 @@
 		AA96281621EF3CF5002F7A9F /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281521EF3CF5002F7A9F /* Timer.swift */; };
 		AA96281821EF3D69002F7A9F /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281721EF3D69002F7A9F /* Memory.swift */; };
 		AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */; };
-		AA96281C21EF3E71002F7A9F /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281B21EF3E71002F7A9F /* Machine.swift */; };
+		AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281B21EF3E71002F7A9F /* MachineState.swift */; };
 		AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */; };
 /* End PBXBuildFile section */
 
@@ -133,7 +133,7 @@
 		AA96281521EF3CF5002F7A9F /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		AA96281721EF3D69002F7A9F /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuffer.swift; sourceTree = "<group>"; };
-		AA96281B21EF3E71002F7A9F /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
+		AA96281B21EF3E71002F7A9F /* MachineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineState.swift; sourceTree = "<group>"; };
 		AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8Emulator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,7 +266,7 @@
 				AA96280F21EF3C5D002F7A9F /* Keys.swift */,
 				AA96281721EF3D69002F7A9F /* Memory.swift */,
 				AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */,
-				AA96281B21EF3E71002F7A9F /* Machine.swift */,
+				AA96281B21EF3E71002F7A9F /* MachineState.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
 			);
@@ -540,7 +540,7 @@
 				AA96280821EF3AFC002F7A9F /* Register.swift in Sources */,
 				AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */,
 				AA96280E21EF3BEA002F7A9F /* Registers.swift in Sources */,
-				AA96281C21EF3E71002F7A9F /* Machine.swift in Sources */,
+				AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */,
 				AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */,
 				AA96280C21EF3B93002F7A9F /* EmulationError.swift in Sources */,
 				AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */,

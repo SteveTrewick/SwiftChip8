@@ -3,7 +3,7 @@ import Foundation
 
 
 
-public class Machine {
+public class MachineState {
 	
 	let register     = Registers()
 	let memory       = Memory()
