@@ -14,6 +14,7 @@ public class SwiftChip8Emulator {
 	public init(machinecore: [UInt8 : (MachineState) throws -> Void], machinestate: MachineState) {
 		self.machinecore  = machinecore
 		self.machinestate = machinestate
+		self.machinestate.memory.load(romdata: Chip8SystemDescription.Font, offset: 0x0000)
 	}
 
 	
@@ -44,6 +45,8 @@ public class SwiftChip8Emulator {
 		}
 	}
 	
-	
+	public func load(rom:[UInt8], at address:UInt16) {
+		machinestate.memory.load(romdata: rom, offset: address)
+	}
 
 }
