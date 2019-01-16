@@ -8,29 +8,29 @@ public typealias MachineDescription = [UInt8 : (MachineState) throws -> Void]
 
 public class SwiftChip8Emulator {
 
-	let machinecore  : [UInt8 : (MachineState) throws -> Void]
-	let machinestate : MachineState
+	let core    : [UInt8 : (MachineState) throws -> Void]
+	let machine : MachineState
 	
-	public init(machinecore: [UInt8 : (MachineState) throws -> Void], machinestate: MachineState) {
-		self.machinecore  = machinecore
-		self.machinestate = machinestate
-		self.machinestate.memory.load(romdata: Chip8SystemDescription.Font, offset: 0x0000)
+	public init() {
+		self.core  = Chip8SystemDescription.EmulatorCore
+		self.machine = MachineState()
+		self.machine.memory.load(romdata: Chip8SystemDescription.Font, offset: 0x0000)
 	}
 
 	
 	public func step() throws {
 		
-		let hi         = machinestate.memory[Int(machinestate.pc.pointer)    ]
-		let lo         = machinestate.memory[Int(machinestate.pc.pointer) + 1]
+		let hi         = machine.memory[Int(machine.pc.pointer)    ]
+		let lo         = machine.memory[Int(machine.pc.pointer) + 1]
 		let opcode     = (UInt16(hi) << 8) + UInt16(lo)
 		
-		machinestate.opcode = Opcode(word: opcode)
+		machine.opcode = Opcode(word: opcode)
 		
-		guard let execute = machinecore[machinestate.opcode.code] else {
+		guard let execute = core[machine.opcode.code] else {
 			throw EmulationError.badInstruction
 		}
 		
-		try execute(machinestate)
+		try execute(machine)
 	}
 	
 	
@@ -40,13 +40,17 @@ public class SwiftChip8Emulator {
 		let steps = Int(hz / fps)
 		
 		for _ in 0..<steps {
-			if machinestate.halted { break }
+			if machine.halted { break }
 			try step()
 		}
 	}
 	
 	public func load(rom:[UInt8], at address:UInt16) {
-		machinestate.memory.load(romdata: rom, offset: address)
+		machine.memory.load(romdata: rom, offset: address)
+	}
+	
+	public func setPC(offset: UInt16) {
+		machine.pc.pointer = offset
 	}
 
 }
