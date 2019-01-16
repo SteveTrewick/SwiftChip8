@@ -19,6 +19,11 @@ public class SwiftChip8Emulator {
 	}
 
 	
+	public func decrementTimers() {
+		machine.delaytimer.decrement()
+		machine.soundtimer.decrement()
+	}
+	
 	public func step() throws {
 		
 		let hi         = machine.memory[Int(machine.pc.pointer)    ]
