@@ -12,7 +12,7 @@ public class SwiftChip8Emulator {
 	let machine : MachineState
 	
 	public init() {
-		self.core  = Chip8SystemDescription.EmulatorCore
+		self.core    = Chip8SystemDescription.EmulatorCore
 		self.machine = MachineState()
 		self.machine.memory.load(romdata: Chip8SystemDescription.Font, offset: 0x0000)
 	}
