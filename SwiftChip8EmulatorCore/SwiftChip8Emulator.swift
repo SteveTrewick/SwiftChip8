@@ -33,6 +33,7 @@ public class SwiftChip8Emulator {
 	}
 	
 	
+	// call on a timer synced to display refresh
 	public func emulate(at hz:Double, fps:Double) throws {
 		
 		let steps = Int(hz / fps)
