@@ -31,12 +31,18 @@ public class SwiftChip8Emulator {
 			throw EmulationError.badInstruction
 		}
 		
+		let debug = String(format: "%03x", machine.pc.pointer) + " " + String(format: "%04x", opcode)
+		print(debug)
+		
 		try execute(machine)
 	}
 	
 	
 	// call on a timer synced to display refresh
 	public func emulate(at hz:Double, fps:Double) throws {
+		
+		machine.delaytimer.decrement()
+		machine.soundtimer.decrement() // we should sync these properly,
 		
 		let steps = Int(hz / fps)
 		
