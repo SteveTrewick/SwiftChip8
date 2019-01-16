@@ -8,12 +8,13 @@ public typealias MachineDescription = [UInt8 : (MachineState) throws -> Void]
 
 public class SwiftChip8Emulator {
 
-	let core    : [UInt8 : (MachineState) throws -> Void]
-	let machine : MachineState
+	let core    =  Chip8SystemDescription.EmulatorCore
+	let machine =  MachineState()
+	let gpu     =  SwiftChip8GPU()
 	
 	public init() {
-		self.core    = Chip8SystemDescription.EmulatorCore
-		self.machine = MachineState()
+		//self.core    = Chip8SystemDescription.EmulatorCore
+		//self.machine = MachineState()
 		self.machine.memory.load(romdata: Chip8SystemDescription.Font, offset: 0x0000)
 	}
 
@@ -51,6 +52,10 @@ public class SwiftChip8Emulator {
 	
 	public func setPC(offset: UInt16) {
 		machine.pc.pointer = offset
+	}
+	
+	public func render() throws -> CGImage {
+		return try gpu.render(buffer: machine.spritebuffer)
 	}
 
 }
