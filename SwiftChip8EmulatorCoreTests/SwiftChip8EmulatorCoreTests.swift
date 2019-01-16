@@ -115,5 +115,41 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		XCTAssert(machine.pc.pointer    == 0x202)
 	}
 	
+	func test_reg_or() {
+		machine.opcode = Opcode(word: 0x8ab1)
+		machine.register[0xa].load(0x12)
+		machine.register[0xb].load(0xfe)
+		execute()
+		XCTAssert(machine.register[0xa] == 0x12 | 0xfe)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_reg_and() {
+		machine.opcode = Opcode(word: 0x8ab2)
+		machine.register[0xa].load(0x12)
+		machine.register[0xb].load(0xfe)
+		execute()
+		XCTAssert(machine.register[0xa] == 0x12 & 0xfe)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_reg_xor() {
+		machine.opcode = Opcode(word: 0x8ab3)
+		machine.register[0xa].load(0x12)
+		machine.register[0xb].load(0xfe)
+		execute()
+		XCTAssert(machine.register[0xa] == 0x12 ^ 0xfe)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_reg_add() {
+		machine.opcode = Opcode(word: 0x8ab4)
+		machine.register[0xa].load(0x12)
+		machine.register[0xb].load(0x0e)
+		execute()
+		XCTAssert(machine.register[0xa] == 0x12 + 0x0e)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
 	
 }
