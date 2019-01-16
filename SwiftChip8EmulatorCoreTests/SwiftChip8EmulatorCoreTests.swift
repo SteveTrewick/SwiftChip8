@@ -94,6 +94,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		machine.opcode = Opcode(word: 0x6dab)
 		execute()
 		XCTAssert(machine.register[0xd] == 0xab)
+		XCTAssert(machine.pc.pointer    == 0x202)
 	}
 	
 	func test_add_immediate() {
