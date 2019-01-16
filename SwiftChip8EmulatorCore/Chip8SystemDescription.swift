@@ -1,11 +1,11 @@
 
 import Foundation
 
-class Chip8SystemDescription {
+public class Chip8SystemDescription {
 	
 	// Chip8 base font glyphs
 	
-	static let Font :[UInt8] = [
+	public static let Font :[UInt8] = [
 			0xF0, 0x90, 0x90, 0x90, 0xF0, //0
 			0x20, 0x60, 0x20, 0x20, 0x70, //1
 			0xF0, 0x10, 0xF0, 0x80, 0xF0, //2
@@ -26,7 +26,7 @@ class Chip8SystemDescription {
 	
 	
 	
-	static let EmulatorCore : [UInt8 : (MachineState) throws -> Void] = [
+	public static let EmulatorCore : [UInt8 : (MachineState) throws -> Void] = [
 	
 			0x0 : { try [
 								0xe0 : { $0.spritebuffer.cls()
