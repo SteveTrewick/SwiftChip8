@@ -17,7 +17,7 @@ public class SwiftChip8Emulator {
 	}
 
 	
-	func step() throws {
+	public func step() throws {
 		
 		let hi         = machinestate.memory[Int(machinestate.pc.pointer)    ]
 		let lo         = machinestate.memory[Int(machinestate.pc.pointer) + 1]
@@ -30,6 +30,17 @@ public class SwiftChip8Emulator {
 		}
 		
 		try execute(machinestate)
+	}
+	
+	
+	public func emulate(at hz:Double, fps:Double) throws {
+		
+		let steps = Int(hz / fps)
+		
+		for _ in 0..<steps {
+			if machinestate.halted { break }
+			try step()
+		}
 	}
 	
 	
