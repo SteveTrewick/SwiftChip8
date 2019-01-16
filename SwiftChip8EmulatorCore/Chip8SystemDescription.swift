@@ -26,7 +26,7 @@ class Chip8SystemDescription {
 	
 	
 	
-	static let EmulatorCore : [UInt8 : (Machine) throws -> Void] = [
+	static let EmulatorCore : [UInt8 : (MachineState) throws -> Void] = [
 	
 		
 			0x1 : { try
