@@ -76,7 +76,8 @@ class Register : Equatable {
 	
 	
 	static func +=(lhs: Register, rhs: UInt8)  {        // should probably be byte
-		lhs.value += rhs
+		let (result, _) = lhs.value.addingReportingOverflow(rhs)
+		lhs.value = result
 	}
 
 	
