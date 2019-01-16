@@ -19,6 +19,7 @@
 		AA9627F521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA9627F821EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; };
 		AA9627F921EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		AA9627EB21EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftChip8EmulatorCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA9627F221EF39A2002F7A9F /* SwiftChip8EmulatorCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8EmulatorCoreTests.swift; sourceTree = "<group>"; };
 		AA9627F421EF39A2002F7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip8SystemDescription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			children = (
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
+				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 					};
 					AA9627E221EF39A2002F7A9F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					AA9627EA21EF39A2002F7A9F = {
 						CreatedOnToolsVersion = 10.1;
@@ -485,6 +489,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +656,7 @@
 		AA768E0C21EDC0E90027A930 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwiftChip8/SwiftChip8.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -670,6 +676,7 @@
 		AA768E0D21EDC0E90027A930 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwiftChip8/SwiftChip8.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -771,6 +778,7 @@
 		AA9627FB21EF39A2002F7A9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -791,6 +799,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.enigmaticape.SwiftChip8EmulatorCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -800,6 +809,7 @@
 		AA9627FC21EF39A2002F7A9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
