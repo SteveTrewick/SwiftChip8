@@ -228,8 +228,8 @@
 			children = (
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
-				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
+				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
 			sourceTree = "<group>";
