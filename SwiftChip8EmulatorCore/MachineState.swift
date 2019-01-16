@@ -16,6 +16,8 @@ public class MachineState {
 	let spritebuffer = SpriteBuffer(width: 64, height: 32)
 	var halted       = false
 	
+	public init(){} // ffs
+	
 	// doing these in line made the swift type checker very cross
 	func rendersprite(pixels: Slice<Memory>, height:UInt8, x: Register, y: Register) -> UInt8 {
 		let result =  spritebuffer.draw(sprite: Sprite (
