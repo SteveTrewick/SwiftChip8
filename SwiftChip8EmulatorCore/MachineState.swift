@@ -26,7 +26,6 @@ public class MachineState {
 			x	    : x.value,
 			y     : y.value
 		))
-		//spritebuffer.dumpFormatted()
 		return result
 	}
 	
