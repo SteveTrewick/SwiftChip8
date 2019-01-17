@@ -11,8 +11,6 @@ struct Register : Equatable {
 		return Register(value: overflow)
 	}
 	
-	var bits:BitCollection<UInt8> { return BitCollection(value: self.value) }
-	
 	init(value:UInt8, overflow: UInt8 = 0) {
 		self.value     = value
 		self.overflow  = overflow
