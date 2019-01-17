@@ -243,6 +243,7 @@
 			children = (
 				AA96280721EF3AFC002F7A9F /* Byte.swift */,
 				AA6A353621F1092700510941 /* Word.swift */,
+				AA96281121EF3C99002F7A9F /* Opcode.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -327,7 +328,6 @@
 				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
 				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
 				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
-				AA96281121EF3C99002F7A9F /* Opcode.swift */,
 				AA96281521EF3CF5002F7A9F /* Timer.swift */,
 				AA96280F21EF3C5D002F7A9F /* Keys.swift */,
 				AA96281721EF3D69002F7A9F /* Memory.swift */,
