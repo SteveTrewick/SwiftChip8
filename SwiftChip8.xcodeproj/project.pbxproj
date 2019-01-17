@@ -32,7 +32,6 @@
 		AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */; };
 		AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281B21EF3E71002F7A9F /* MachineState.swift */; };
 		AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */; };
-		AA96282021EF44B5002F7A9F /* SystemClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281F21EF44B5002F7A9F /* SystemClock.swift */; };
 		AA96282221EF677E002F7A9F /* SwiftChip8GPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */; };
 		AA96282A21EF7DA2002F7A9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96282921EF7DA2002F7A9F /* AppDelegate.swift */; };
 		AA96282C21EF7DA2002F7A9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96282B21EF7DA2002F7A9F /* ViewController.swift */; };
@@ -155,7 +154,6 @@
 		AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuffer.swift; sourceTree = "<group>"; };
 		AA96281B21EF3E71002F7A9F /* MachineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineState.swift; sourceTree = "<group>"; };
 		AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8Emulator.swift; sourceTree = "<group>"; };
-		AA96281F21EF44B5002F7A9F /* SystemClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemClock.swift; sourceTree = "<group>"; };
 		AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8GPU.swift; sourceTree = "<group>"; };
 		AA96282721EF7DA2002F7A9F /* check2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = check2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA96282921EF7DA2002F7A9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -329,7 +327,6 @@
 				AA96281B21EF3E71002F7A9F /* MachineState.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
-				AA96281F21EF44B5002F7A9F /* SystemClock.swift */,
 				AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
@@ -710,7 +707,6 @@
 				AA6A353721F1092700510941 /* Word.swift in Sources */,
 				AA96280C21EF3B93002F7A9F /* EmulationError.swift in Sources */,
 				AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */,
-				AA96282021EF44B5002F7A9F /* SystemClock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
