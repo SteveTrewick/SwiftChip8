@@ -61,7 +61,7 @@ class Register : Equatable {
 	}
 	
 	static func <<(lhs: Register, rhs: Int) -> UInt8 {
-		return  lhs.value >> rhs
+		return  lhs.value << rhs
 	}
 	static func >>(lhs: Register, rhs: Int) -> UInt8 {
 		return lhs.value >> rhs
