@@ -3,8 +3,8 @@ import Foundation
 
 
 
-public class MachineState {
-	
+/*public*/ class MachineState {
+
 	let register     = Registers()
 	let memory       = Memory()
 	var memoryindex  = Word()
