@@ -5,7 +5,11 @@ import Foundation
 struct Register : Equatable {
 	
 	var value   :UInt8
-	var overflow:UInt8
+	private var overflow:UInt8
+	
+	var overflowed : Register {
+		return Register(value: overflow)
+	}
 	
 	var bits:BitCollection<UInt8> { return BitCollection(value: self.value) }
 	
@@ -33,14 +37,17 @@ struct Register : Equatable {
 	
 	static func |=( lhs: inout Register, rhs: Register) {
 		lhs.value |= rhs.value
+		lhs.overflow = 0
 	}
 	
 	static func ^=(lhs: inout Register, rhs: Register) {
 		lhs.value ^= rhs.value
+		lhs.overflow = 0
 	}
 	
 	static func &=(lhs: inout Register, rhs: Register) {
 		lhs.value &= rhs.value
+		lhs.overflow = 0
 	}
 	
 	static func +=(lhs: inout Register, rhs: Register) {
@@ -89,5 +96,9 @@ struct Register : Equatable {
 
 	static func *(lhs: Register, rhs: UInt16) -> UInt16 {
 		return UInt16(lhs.value) * rhs
-	}                                                      
+	}
+	
+	static func &(lhs: Register, rhs: Int) -> Register {
+		return Register(value: lhs.value & UInt8(rhs))
+	}
 }

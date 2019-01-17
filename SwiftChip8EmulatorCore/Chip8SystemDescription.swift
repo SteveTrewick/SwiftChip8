@@ -64,19 +64,19 @@ public class Chip8SystemDescription {
 								0x3 : { $0.register[$0.opcode.x] ^= $0.register[$0.opcode.y] },
 								
 								0x4 : { $0.register[$0.opcode.x] += $0.register[$0.opcode.y]
-												$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+												$0.register[0xf        ]  = $0.register[$0.opcode.x].overflowed
 								},
 								0x5 : { $0.register[$0.opcode.x] -= $0.register[$0.opcode.y]
-												$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+												$0.register[0xf        ]  = $0.register[$0.opcode.x].overflowed
 								},
-								0x6 : { $0.register[0xf        ].load($0.register[$0.opcode.x].bits[7])
-												$0.register[$0.opcode.x].load($0.register[$0.opcode.x] >> 1)
+								0x6 : { $0.register[0xf        ] = $0.register[$0.opcode.x] & 0x1
+												$0.register[$0.opcode.x] = $0.register[$0.opcode.x] >> 1
 								},
 								0x7 : { $0.register[$0.opcode.x] = $0.register[$0.opcode.y] - $0.register[$0.opcode.x]
-												$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
+												$0.register[0xf        ] = $0.register[$0.opcode.x].overflowed
 								},
-								0xe : { $0.register[0xf        ].load($0.register[$0.opcode.x].bits[0])
-												$0.register[$0.opcode.x].load($0.register[$0.opcode.x] << 1)
+								0xe : { $0.register[0xf        ] = $0.register[$0.opcode.x] >> 7 & 1
+												$0.register[$0.opcode.x] = $0.register[$0.opcode.x] << 1
 								}
 				
 							][$0.opcode.nibble, default: { _ in throw EmulationError.badInstruction }]($0)
