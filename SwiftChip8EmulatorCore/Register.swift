@@ -88,6 +88,6 @@ class Register : Equatable {
 	}
 
 	static func *(lhs: Register, rhs: UInt16) -> UInt16 {  // wut?
-		return UInt16(lhs.value) + rhs                       // fails if I take this out : $0.register[$0.opcode.x].load( $0.delaytimer )
+		return UInt16(lhs.value) * rhs                       // fails if I take this out : $0.register[$0.opcode.x].load( $0.delaytimer )
 	}                                                      // wtaf?
 }
