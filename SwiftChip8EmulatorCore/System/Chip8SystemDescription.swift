@@ -117,7 +117,7 @@ public class Chip8SystemDescription {
 								0x29: { $0.memoryindex   =  0
 												$0.memoryindex  += $0.register[$0.opcode.x] * 5
 											},
-								0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
+								0x33: { $0.memory.load ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
 								0x55: {
 									for idx in 0...$0.opcode.x {
 										$0.memory[$0.memoryindex + idx] = $0.register[idx]
