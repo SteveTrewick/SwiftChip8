@@ -8,7 +8,7 @@ public class MachineState {
 	let register     = Registers()
 	let memory       = Memory()
 	var memoryindex  = Word()//MemoryIndex()
-	let pc           = ProgramCounter()
+	var pc           = ProgramCounter()
 	var opcode       = Opcode(word: 0x0000)
 	let key          = Keys()
 	var delaytimer   = Byte()//Timer()
