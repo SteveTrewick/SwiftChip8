@@ -33,11 +33,12 @@ class ViewController: NSViewController {
 	
 	
 	override func viewDidAppear() {
+		
 		// ok, that's how we do that, then
-		// NB we can't get the screen/window untill viewDidAppear,
+		// NB we can't get the screen/window until viewDidAppear,
 		// didLoad will not cut it as they're not set yet.
 		
-		return
+		
 		let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("trip8.ch8")
 		guard let data = try? Data(contentsOf: url) else { fatalError() }
 		
@@ -53,11 +54,11 @@ class ViewController: NSViewController {
 				let fps = 1 / CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
 				do {
 					
-					let cgimage        = try self.emulator.render()
+					let cgimage = try self.emulator.render()
 					DispatchQueue.main.async {
 						self.imgview.image = NSImage(cgImage: cgimage, size: NSSize(width: 640, height: 320))
 					}
-					try self.emulator.emulate(at: 1500, fps: fps)
+					try self.emulator.emulate(at: 700, fps: fps)
 				}
 				catch {
 					CVDisplayLinkStop(link)
