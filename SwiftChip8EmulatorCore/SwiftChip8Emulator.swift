@@ -13,16 +13,9 @@ public class SwiftChip8Emulator {
 	let gpu     =  SwiftChip8GPU()
 	
 	public init() {
-		//self.core    = Chip8SystemDescription.EmulatorCore
-		//self.machine = MachineState()
 		self.machine.memory.load(romdata: Chip8SystemDescription.Font, offset: 0x0000)
 	}
 
-	
-	public func decrementTimers() {
-		machine.delaytimer.decrement()
-		machine.soundtimer.decrement()
-	}
 	
 	public func step() throws {
 		
@@ -35,9 +28,6 @@ public class SwiftChip8Emulator {
 		guard let execute = core[machine.opcode.code] else {
 			throw EmulationError.badInstruction
 		}
-		
-		let debug = String(format: "%03x", machine.pc.pointer) + " " + String(format: "%04x", opcode)
-		print(debug)
 		
 		try execute(machine)
 	}
