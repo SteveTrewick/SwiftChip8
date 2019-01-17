@@ -244,6 +244,13 @@
 			path = Types;
 			sourceTree = "<group>";
 		};
+		AA6A353A21F110AF00510941 /* State */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
 		AA768DE721EDC0E70027A930 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +323,7 @@
 		AA9627E421EF39A2002F7A9F /* SwiftChip8EmulatorCore */ = {
 			isa = PBXGroup;
 			children = (
+				AA6A353A21F110AF00510941 /* State */,
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA6A353921F10F1D00510941 /* Types */,
