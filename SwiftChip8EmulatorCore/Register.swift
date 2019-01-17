@@ -2,7 +2,7 @@
 import Foundation
 
 
-class Register : Equatable {
+struct Register : Equatable {
 	
 	var value   :UInt8
 	var overflow:UInt8
@@ -15,12 +15,12 @@ class Register : Equatable {
 	}
 	
 	
-	func load(_ value: UInt8) {
+	mutating func load(_ value: UInt8) {
 		self.value    = value
 		self.overflow = 0
 	}
 	
- 	func load(_ timer: Timer) {
+ 	mutating func load(_ timer: Timer) {
 		self.value    = timer.count
 		self.overflow = 0
 	}
@@ -31,53 +31,53 @@ class Register : Equatable {
 		return lhs.value == rhs.value
 	}
 	
-	static func |=(lhs: Register, rhs: Register) {
+	static func |=( lhs: inout Register, rhs: Register) {
 		lhs.value |= rhs.value
 	}
 	
-	static func ^=(lhs: Register, rhs: Register) {
+	static func ^=(lhs: inout Register, rhs: Register) {
 		lhs.value ^= rhs.value
 	}
 	
-	static func &=(lhs: Register, rhs: Register) {
+	static func &=(lhs: inout Register, rhs: Register) {
 		lhs.value &= rhs.value
 	}
 	
-	static func +=(lhs: Register, rhs: Register) {
+	static func +=(lhs: inout Register, rhs: Register) {
 		let (result, overflow) = lhs.value.addingReportingOverflow(rhs.value)
 		lhs.value = result
 		lhs.overflow = overflow ? 1 : 0
 	}
 	
-	static func -=(lhs: Register, rhs: Register) {
+	static func -=(lhs: inout Register, rhs: Register) {
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
 		lhs.value = result
 		lhs.overflow = overflow ? 0 : 1
 	}
 	
-	static func -(lhs: Register, rhs: Register) -> Register {
+	static func -(lhs: inout Register, rhs: Register) -> Register {
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
 		return Register(value: result, overflow: overflow ? 0 : 1)
 	}
 	
-	static func <<(lhs: Register, rhs: Int) -> UInt8 {
+	static func <<(lhs: inout Register, rhs: Int) -> UInt8 {
 		return  lhs.value << rhs
 	}
-	static func >>(lhs: Register, rhs: Int) -> UInt8 {
+	static func >>(lhs: inout Register, rhs: Int) -> UInt8 {
 		return lhs.value >> rhs
 	}
 	
 	
-	static func ==(lhs: Register, rhs: UInt8) -> Bool {  // should probably be byte
+	static func ==(lhs: inout Register, rhs: UInt8) -> Bool {  // should probably be byte
 		return lhs.value == rhs
 	}
 	
-	static func !=(lhs: Register, rhs: UInt8) -> Bool {  // should pobably be byte
+	static func !=(lhs: inout Register, rhs: UInt8) -> Bool {  // should pobably be byte
 		return lhs.value != rhs
 	}
 	
 	
-	static func +=(lhs: Register, rhs: UInt8)  {        // should probably be byte
+	static func +=(lhs: inout Register, rhs: UInt8)  {        // should probably be byte
 		let (result, _) = lhs.value.addingReportingOverflow(rhs)
 		lhs.value = result
 	}
@@ -87,7 +87,7 @@ class Register : Equatable {
 		return lhs + UInt16(rhs.value)
 	}
 
-	static func *(lhs: Register, rhs: UInt16) -> UInt16 {  // wut?
-		return UInt16(lhs.value) * rhs                       // fails if I take this out : $0.register[$0.opcode.x].load( $0.delaytimer )
-	}                                                      // wtaf?
+	static func *(lhs: Register, rhs: UInt16) -> UInt16 {
+		return UInt16(lhs.value) * rhs
+	}                                                      
 }
