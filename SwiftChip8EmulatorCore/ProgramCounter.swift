@@ -5,12 +5,12 @@ import Foundation
 
 class ProgramCounter {
 	
-	let step   = UInt16(2)
-	var stack  = Stack<UInt16>()
+	let step   = 2
+	var stack  = Stack<Word>()
 	
-	var pointer: UInt16 = 0x0200
+	var pointer = Word(value:0x200)
 	
-	func jmp(_ address: UInt16) throws {
+	func jmp(_ address: Word) throws {
 		if address == pointer {
 			throw EmulationError.loopHalt
 		}

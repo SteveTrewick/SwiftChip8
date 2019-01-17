@@ -4,40 +4,49 @@ import Foundation
 
 class Memory : Collection {
 	
-	typealias Index   = Int
-	typealias Element = UInt8
+	typealias Index   = Word
+	typealias Element = Register
 	
-	var contents = ContiguousArray<UInt8>(repeating: 0x00, count: 4096)
+	var contents = ContiguousArray<Register>()
+	
+	init()
+	{
+		for _ in 0..<4096 {
+			contents.append(Register())
+		}
+	}
 	
 	func load( _ offset: Int, _ register:Register) {
-		contents[offset] = register.value
+		contents[offset] = register
 	}
 
-	func load( _ bytes:[UInt8], _ index:MemoryIndex) {
+	func load( _ bytes:[Register], _ index: Word) {
 		for (offset, byte) in bytes.enumerated() {
-			contents[Int(index.pointer) + offset] = byte
+			contents[Int(index.value) + offset] = byte
 		}
 	}
 	
 	func load(romdata: [UInt8], offset: UInt16) {
 		for (idx, byte) in romdata.enumerated() {
-			contents[Int(offset) + idx] = byte
+			contents[Int(offset) + idx] = Register(value: byte)
 		}
 	}
 	
-	subscript(position: Index) -> Element {
+	subscript(position: Word) -> Element {
 		get {
-			precondition( position < contents.count )
-			return contents[position]
+			precondition( position.value < contents.count )
+			return contents[Int(position.value)]
 		}
 		set(value) {
-			contents[position] = value
+			contents[Int(position.value)] = value
 		}
 	}
 	
-	var startIndex:Index { return 0 }
-	var endIndex  :Index { return contents.count }
-	func index(after i: Int) -> Int {
-		return i + 1
+	
+	
+	var startIndex:Index { return Word(value: 0) }
+	var endIndex  :Index { return Word(value: UInt16(contents.count)) }
+	func index(after i: Word) -> Word {
+		return Word(value: i.value + 1)
 	}
 }

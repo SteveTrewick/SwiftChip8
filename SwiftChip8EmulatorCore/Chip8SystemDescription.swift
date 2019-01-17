@@ -34,7 +34,7 @@ public class Chip8SystemDescription {
 											 },
 								0xee : { try $0.pc.pop() }
 				
-							][$0.opcode.byte, default: { _ in throw EmulationError.badInstruction }]($0)
+							][$0.opcode.byte.value, default: { _ in throw EmulationError.badInstruction }]($0)
 						},
 			0x1 : { try
 							$0.pc.jmp($0.opcode.address) },
@@ -49,7 +49,7 @@ public class Chip8SystemDescription {
 			
 			0x5 : { $0.pc.skip( $0.register[$0.opcode.x] == $0.register[$0.opcode.y] ) },
 			
-			0x6 : { $0.register[$0.opcode.x].load($0.opcode.byte)
+			0x6 : { $0.register[$0.opcode.x] = $0.opcode.byte
 							$0.pc.increment()
 						},
 			
@@ -79,29 +79,29 @@ public class Chip8SystemDescription {
 												$0.register[$0.opcode.x] = $0.register[$0.opcode.x] << 1
 								}
 				
-							][$0.opcode.nibble, default: { _ in throw EmulationError.badInstruction }]($0)
+							][$0.opcode.nibble.value, default: { _ in throw EmulationError.badInstruction }]($0)
 							$0.pc.increment()
 						},
 			
 			0x9 : { $0.pc.skip( $0.register[$0.opcode.x] != $0.register[$0.opcode.y] )},
 			
-			0xa : { $0.memoryindex.load( $0.opcode.address)
+			0xa : { $0.memoryindex = $0.opcode.address
 							$0.pc.increment()
 						},
 			
 			0xb : { try $0.pc.jmp ( $0.opcode.address + $0.register[0] ) },
 			
-			0xc : { $0.register[$0.opcode.x].load($0.rand($0.opcode.byte))
+			0xc : { $0.register[$0.opcode.x] = $0.rand($0.opcode.byte)
 							$0.pc.increment()
 						},
 
 			0xd: {
-							$0.register[0xf].load( $0.rendersprite (
+							$0.register[0xf] = $0.rendersprite (
 								pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
-								height: $0.opcode.nibble,
+								height: $0.opcode.nibble.value,
 								x     : $0.register[$0.opcode.x],
 								y     : $0.register[$0.opcode.y]
-							))
+							)
 							$0.pc.increment()
 					 },
 			
@@ -109,31 +109,32 @@ public class Chip8SystemDescription {
 								0x9e: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == true  )},
 								0xa1: { $0.pc.skip( $0.key[ $0.register[$0.opcode.x] ] == false )}
 				
-							][$0.opcode.byte, default: { _ in throw EmulationError.badInstruction }]($0)
+							][$0.opcode.byte.value, default: { _ in throw EmulationError.badInstruction }]($0)
 						},
 
 			0xf : { try [
-								0x07: { $0.register[$0.opcode.x].load( $0.delaytimer ) },
+								0x07: { $0.register[$0.opcode.x] = $0.delaytimer  },
 								0x0a: { $0.waitkey($0.opcode.x)},
-								0x15: { $0.delaytimer.load ( $0.register[$0.opcode.x] )},
-								0x18: { $0.soundtimer.load ( $0.register[$0.opcode.x] )},
-								0x1e: { $0.memoryindex.add ( $0.register[$0.opcode.x] )},
-								0x29: { $0.memoryindex.load( $0.register[$0.opcode.x] * 5)},
+								0x15: { $0.delaytimer = $0.register[$0.opcode.x] },
+								0x18: { $0.soundtimer = $0.register[$0.opcode.x] },
+								0x1e: { $0.memoryindex +=  $0.register[$0.opcode.x] },
+								0x29: { $0.memoryindex  =  0
+												$0.memoryindex  += $0.register[$0.opcode.x] * 5
+											},
 								0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
-								
 								0x55: {
 									for idx in 0...$0.opcode.x {
-										$0.memory.load($0.memoryindex + idx, $0.register[idx])
+										$0.memory[$0.memoryindex + idx] = $0.register[idx]
 									}
 								},
 								
 								0x65: {
 									for idx in 0...$0.opcode.x {
-										$0.register[idx].load( $0.memory[$0.memoryindex + idx] )
+										$0.register[idx] = $0.memory[$0.memoryindex + idx]
 									}
 								}
 				
-							][$0.opcode.byte, default: { _ in throw EmulationError.badInstruction }]($0)
+							][$0.opcode.byte.value, default: { _ in throw EmulationError.badInstruction }]($0)
 							$0.pc.increment()
 						}
 	]

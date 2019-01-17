@@ -45,7 +45,7 @@ class SpriteBuffer {
 	}
 	
 	
-	func draw(sprite: Sprite) -> UInt8 {
+	func draw(sprite: Sprite) -> Register {
 		
 		var collision : UInt8 = 0
 		
@@ -57,7 +57,7 @@ class SpriteBuffer {
 				contents[index] ^= column
 			}
 		}
-		return collision
+		return Register(value: collision)
 	}
 
 	func dumpFormatted() {

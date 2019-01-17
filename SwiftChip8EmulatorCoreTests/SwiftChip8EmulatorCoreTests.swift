@@ -264,8 +264,8 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	func test_load_memory_address() {  // LD I, addr
 		machine.opcode = Opcode(word:0xa123)
 		execute()
-		XCTAssert(machine.memoryindex.pointer == 0x123)
-		XCTAssert(machine.pc.pointer          == 0x202)
+		XCTAssert(machine.memoryindex.value == 0x123)
+		XCTAssert(machine.pc.pointer        == 0x202)
 	}
 
 	func test_jmp_relative() {  // JP r0, addr : jump relative to reg 0
@@ -291,7 +291,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		machine.opcode = Opcode(word:0xf215) // LD DT, rx
 		machine.register[2] = Register(value:0xff)
 		execute()
-		XCTAssert(machine.delaytimer.count == 0xff)
+		XCTAssert(machine.delaytimer.value == 0xff)
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
@@ -299,16 +299,16 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		machine.opcode      = Opcode(word:0xf218)
 		machine.register[2] = Register(value:0xff)
 		execute()
-		XCTAssert(machine.soundtimer.count == 0xff)
+		XCTAssert(machine.soundtimer.value == 0xff)
 		XCTAssert(machine.pc.pointer       == 0x202)
 	}
 	
 	func test_add_reg_to_memindex() { // ADD I, rx
 		machine.opcode      = Opcode(word:0xf31e)
 		machine.register[3] = Register(value:0xfe)
-		machine.memoryindex.pointer = 1
+		machine.memoryindex.value = 1
 		execute()
-		XCTAssert(machine.memoryindex.pointer == 0xff)
+		XCTAssert(machine.memoryindex.value == 0xff)
 		XCTAssert(machine.pc.pointer          == 0x202)
 	}
 	
@@ -316,45 +316,48 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		machine.opcode = Opcode(word: 0xfe29)
 		machine.register[0xe] = Register(value: 0x2)
 		execute()
-		XCTAssert(machine.memoryindex.pointer == 10)
+		XCTAssert(machine.memoryindex.value == 10)
 		XCTAssert(machine.pc.pointer          == 0x202)
 	}
 	
 	func test_bcd() {
 		machine.opcode              = Opcode(word:0xfa33)
 		machine.register[0xa]       = Register(value: 0xff)
-		machine.memoryindex.pointer = 0
+		machine.memoryindex.value = 0
 		execute()
-		XCTAssert(Array(machine.memory[0..<3]) == [UInt8(2), UInt8(5), UInt8(5)])
+		XCTAssert(Array(machine.memory[0..<3]) == [Register(value:2), Register(value:5), Register(value:5)])
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
 	func test_store_reg() {
-		let values = Array<UInt8>(0x0...0xf)
-		for value in values {
-			machine.register[value] = Register(value: value)
+		let bytes = (0x0...0xf).map { Register(value: $0) }
+		for byte in bytes {
+			machine.register[byte.value] = byte
 		}
 		machine.opcode = Opcode(word: 0xff55)
-		machine.memoryindex.pointer = 0x0
+		machine.memoryindex.value = 0x0
 		execute()
-		XCTAssert(Array(machine.memory[0x0...0xf]) == values)
+		XCTAssert(Array<Register>(machine.memory[0x0...0xf]) == bytes)
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
 	func test_load_reg() {
-		let values = Array<UInt8>(0x0...0xf)
-		for value in values {
-			machine.memory[Int(value)] = value
+		let values = (0x0...0xf).map{Register(value:$0)}
+		for byte in values {
+			machine.memory[Word(value: UInt16(byte.value))] = byte
 		}
 		machine.opcode              = Opcode(word: 0xff65)
-		machine.memoryindex.pointer = 0
+		machine.memoryindex.value = 0
 		execute()
-		for value in values {
-			XCTAssert(machine.register[value] == value)
+		for byte in values {
+			XCTAssert(machine.register[byte.value] == byte)
 		}
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
+//	func test_this() {
+//		machine.memory[0..<2] = [1,2].map{Register(value:$0)}
+//	}
 	
 	// so a huge issue I had that was I had registers as class rather struct, and they should
 	// be value types.

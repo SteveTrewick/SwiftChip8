@@ -2,8 +2,23 @@
 import Foundation
 
 
-public typealias MachineDescription = [UInt8 : (MachineState) throws -> Void]
+// ok, I think we can use that instead of raw dict and index by reg/byte
+struct MachineDescription : ExpressibleByDictionaryLiteral {
+	
+	var elements:[UInt8 : (MachineState) throws -> Void] = [:]
+	
+	init(dictionaryLiteral elements: (Register, (MachineState) throws -> Void)...) {
+		elements.forEach { element in self.elements[element.0.value] = element.1 }
+	}
+	
+	subscript(_ key: Register)  -> ((MachineState) throws -> Void)? {
+		get {
+			return elements[key.value]
+		}
+	}
+	
 
+}
 
 
 public class SwiftChip8Emulator {
@@ -19,9 +34,9 @@ public class SwiftChip8Emulator {
 	
 	public func step() throws {
 		
-		let hi         = machine.memory[Int(machine.pc.pointer)    ]
-		let lo         = machine.memory[Int(machine.pc.pointer) + 1]
-		let opcode     = (UInt16(hi) << 8) + UInt16(lo)
+		let hi         = machine.memory[machine.pc.pointer    ]
+		let lo         = machine.memory[machine.pc.pointer + 1]
+		let opcode     = (UInt16(hi.value) << 8) + UInt16(lo.value)
 		
 		machine.opcode = Opcode(word: opcode)
 		
@@ -36,8 +51,8 @@ public class SwiftChip8Emulator {
 	// call on a timer synced to display refresh
 	public func emulate(at hz:Double, fps:Double) throws {
 		
-		machine.delaytimer.decrement()
-		machine.soundtimer.decrement() // we should sync these properly,
+		machine.delaytimer -= 1
+		machine.soundtimer -= 1
 		
 		let steps = Int(hz / fps)
 		
@@ -52,7 +67,7 @@ public class SwiftChip8Emulator {
 	}
 	
 	public func setPC(offset: UInt16) {
-		machine.pc.pointer = offset
+		machine.pc.pointer = Word(value:offset)
 	}
 	
 	public func render() throws -> CGImage {
