@@ -235,6 +235,7 @@
 		AA6A353921F10F1D00510941 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
 				AA96280721EF3AFC002F7A9F /* Byte.swift */,
 				AA6A353621F1092700510941 /* Word.swift */,
@@ -318,7 +319,6 @@
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA6A353921F10F1D00510941 /* Types */,
-				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
 				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
 				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
 				AA96280F21EF3C5D002F7A9F /* Keys.swift */,
