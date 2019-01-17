@@ -7,12 +7,12 @@ public class MachineState {
 	
 	let register     = Registers()
 	let memory       = Memory()
-	var memoryindex  = Word()//MemoryIndex()
+	var memoryindex  = Word()
 	var pc           = ProgramCounter()
 	var opcode       = Opcode(word: 0x0000)
 	let key          = Keys()
-	var delaytimer   = Byte()//Timer()
-	var soundtimer   = Byte()//Timer()
+	var delaytimer   = Byte()
+	var soundtimer   = Byte()
 	let spritebuffer = SpriteBuffer(width: 64, height: 32)
 	var halted       = false
 	
