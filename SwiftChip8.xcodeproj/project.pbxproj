@@ -268,6 +268,8 @@
 		AA6A353C21F1116900510941 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
+				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -350,8 +352,6 @@
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA6A353921F10F1D00510941 /* Types */,
-				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
-				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
 			sourceTree = "<group>";
