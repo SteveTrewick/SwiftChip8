@@ -29,7 +29,6 @@
 		AA96280E21EF3BEA002F7A9F /* Registers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280D21EF3BEA002F7A9F /* Registers.swift */; };
 		AA96281021EF3C5D002F7A9F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280F21EF3C5D002F7A9F /* Keys.swift */; };
 		AA96281221EF3C99002F7A9F /* Opcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281121EF3C99002F7A9F /* Opcode.swift */; };
-		AA96281421EF3CC3002F7A9F /* MemoryIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281321EF3CC3002F7A9F /* MemoryIndex.swift */; };
 		AA96281621EF3CF5002F7A9F /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281521EF3CF5002F7A9F /* Timer.swift */; };
 		AA96281821EF3D69002F7A9F /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281721EF3D69002F7A9F /* Memory.swift */; };
 		AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */; };
@@ -155,7 +154,6 @@
 		AA96280D21EF3BEA002F7A9F /* Registers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registers.swift; sourceTree = "<group>"; };
 		AA96280F21EF3C5D002F7A9F /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		AA96281121EF3C99002F7A9F /* Opcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opcode.swift; sourceTree = "<group>"; };
-		AA96281321EF3CC3002F7A9F /* MemoryIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryIndex.swift; sourceTree = "<group>"; };
 		AA96281521EF3CF5002F7A9F /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		AA96281721EF3D69002F7A9F /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuffer.swift; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 				AA96280721EF3AFC002F7A9F /* Register.swift */,
 				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
 				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
-				AA96281321EF3CC3002F7A9F /* MemoryIndex.swift */,
 				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
 				AA96281121EF3C99002F7A9F /* Opcode.swift */,
 				AA96281521EF3CF5002F7A9F /* Timer.swift */,
@@ -714,7 +711,6 @@
 				AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */,
 				AA96282021EF44B5002F7A9F /* SystemClock.swift in Sources */,
 				AA96281621EF3CF5002F7A9F /* Timer.swift in Sources */,
-				AA96281421EF3CC3002F7A9F /* MemoryIndex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
