@@ -23,7 +23,7 @@
 		AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */; };
 		AA96280421EF3A34002F7A9F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280321EF3A34002F7A9F /* Stack.swift */; };
 		AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280521EF3AC0002F7A9F /* BitCollection.swift */; };
-		AA96280821EF3AFC002F7A9F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280721EF3AFC002F7A9F /* Register.swift */; };
+		AA96280821EF3AFC002F7A9F /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280721EF3AFC002F7A9F /* Byte.swift */; };
 		AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */; };
 		AA96280C21EF3B93002F7A9F /* EmulationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280B21EF3B93002F7A9F /* EmulationError.swift */; };
 		AA96280E21EF3BEA002F7A9F /* Registers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280D21EF3BEA002F7A9F /* Registers.swift */; };
@@ -148,7 +148,7 @@
 		AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip8SystemDescription.swift; sourceTree = "<group>"; };
 		AA96280321EF3A34002F7A9F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		AA96280521EF3AC0002F7A9F /* BitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitCollection.swift; sourceTree = "<group>"; };
-		AA96280721EF3AFC002F7A9F /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		AA96280721EF3AFC002F7A9F /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
 		AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramCounter.swift; sourceTree = "<group>"; };
 		AA96280B21EF3B93002F7A9F /* EmulationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulationError.swift; sourceTree = "<group>"; };
 		AA96280D21EF3BEA002F7A9F /* Registers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registers.swift; sourceTree = "<group>"; };
@@ -238,6 +238,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA6A353921F10F1D00510941 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				AA96280721EF3AFC002F7A9F /* Byte.swift */,
+				AA6A353621F1092700510941 /* Word.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		AA768DE721EDC0E70027A930 = {
 			isa = PBXGroup;
 			children = (
@@ -311,10 +320,10 @@
 			isa = PBXGroup;
 			children = (
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
+				AA6A353921F10F1D00510941 /* Types */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
 				AA96280521EF3AC0002F7A9F /* BitCollection.swift */,
-				AA96280721EF3AFC002F7A9F /* Register.swift */,
 				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
 				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
 				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
@@ -328,7 +337,6 @@
 				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
 				AA96281F21EF44B5002F7A9F /* SystemClock.swift */,
 				AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */,
-				AA6A353621F1092700510941 /* Word.swift */,
 			);
 			path = SwiftChip8EmulatorCore;
 			sourceTree = "<group>";
@@ -700,7 +708,7 @@
 				AA96281021EF3C5D002F7A9F /* Keys.swift in Sources */,
 				AA96281A21EF3DC9002F7A9F /* SpriteBuffer.swift in Sources */,
 				AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */,
-				AA96280821EF3AFC002F7A9F /* Register.swift in Sources */,
+				AA96280821EF3AFC002F7A9F /* Byte.swift in Sources */,
 				AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */,
 				AA96280E21EF3BEA002F7A9F /* Registers.swift in Sources */,
 				AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */,
