@@ -2,13 +2,13 @@
 import Foundation
 
 
-struct Register : Equatable {
+struct Byte : Equatable {
 	
 	var value   :UInt8
 	private var overflow:UInt8
 	
-	var overflowed : Register {
-		return Register(value: overflow)
+	var overflowed : Byte {
+		return Byte(value: overflow)
 	}
 	
 	init(value: UInt8 = 0, overflow: UInt8 = 0) {
@@ -29,81 +29,81 @@ struct Register : Equatable {
 
 	
 	
-	static func ==(lhs: Register, rhs: Register) -> Bool {
+	static func ==(lhs: Byte, rhs: Byte) -> Bool {
 		return lhs.value == rhs.value
 	}
 	
-	static func |=( lhs: inout Register, rhs: Register) {
+	static func |=( lhs: inout Byte, rhs: Byte) {
 		lhs.value |= rhs.value
 		lhs.overflow = 0
 	}
 	
-	static func ^=(lhs: inout Register, rhs: Register) {
+	static func ^=(lhs: inout Byte, rhs: Byte) {
 		lhs.value ^= rhs.value
 		lhs.overflow = 0
 	}
 	
-	static func &=(lhs: inout Register, rhs: Register) {
+	static func &=(lhs: inout Byte, rhs: Byte) {
 		lhs.value &= rhs.value
 		lhs.overflow = 0
 	}
 	
-	static func +=(lhs: inout Register, rhs: Register) {
+	static func +=(lhs: inout Byte, rhs: Byte) {
 		let (result, overflow) = lhs.value.addingReportingOverflow(rhs.value)
 		lhs.value = result
 		lhs.overflow = overflow ? 1 : 0
 	}
 	
-	static func -=(lhs: inout Register, rhs: Register) {
+	static func -=(lhs: inout Byte, rhs: Byte) {
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
 		lhs.value = result
 		lhs.overflow = overflow ? 0 : 1
 	}
 	
-	static func -=(lhs: inout Register, rhs: Int) {
+	static func -=(lhs: inout Byte, rhs: Int) {
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(UInt8(rhs))
 		lhs.value = result
 		lhs.overflow = overflow ? 0 : 1
 	}
 	
-	static func -(lhs: inout Register, rhs: Register) -> Register {
+	static func -(lhs: inout Byte, rhs: Byte) -> Byte {
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
-		return Register(value: result, overflow: overflow ? 0 : 1)
+		return Byte(value: result, overflow: overflow ? 0 : 1)
 	}
 	
-	static func <<(lhs: inout Register, rhs: Int) -> Register {
-		return  Register(value: lhs.value << rhs)
+	static func <<(lhs: inout Byte, rhs: Int) -> Byte {
+		return  Byte(value: lhs.value << rhs)
 	}
-	static func >>(lhs: inout Register, rhs: Int) -> Register {
-		return Register(value:lhs.value >> rhs)
+	static func >>(lhs: inout Byte, rhs: Int) -> Byte {
+		return Byte(value:lhs.value >> rhs)
 	}
 	
 	
-	static func ==(lhs: inout Register, rhs: UInt8) -> Bool {  // should probably be byte
+	static func ==(lhs: inout Byte, rhs: UInt8) -> Bool {  // should probably be byte
 		return lhs.value == rhs
 	}
 	
-	static func !=(lhs: inout Register, rhs: UInt8) -> Bool {  // should pobably be byte
+	static func !=(lhs: inout Byte, rhs: UInt8) -> Bool {  // should pobably be byte
 		return lhs.value != rhs
 	}
 	
 	
-	static func +=(lhs: inout Register, rhs: UInt8)  {        // should probably be byte
+	static func +=(lhs: inout Byte, rhs: UInt8)  {        // should probably be byte
 		let (result, _) = lhs.value.addingReportingOverflow(rhs)
 		lhs.value = result
 	}
 
 	
-	static func +(lhs: UInt16, rhs: Register) -> UInt16 {  // should probably be address
+	static func +(lhs: UInt16, rhs: Byte) -> UInt16 {  // should probably be address
 		return lhs + UInt16(rhs.value)
 	}
 
-	static func *(lhs: Register, rhs: Int) -> Word {
+	static func *(lhs: Byte, rhs: Int) -> Word {
 		return Word(value: UInt16(lhs.value) * UInt16(rhs))
 	}
 	
-	static func &(lhs: Register, rhs: Int) -> Register {
-		return Register(value: lhs.value & UInt8(rhs))
+	static func &(lhs: Byte, rhs: Int) -> Byte {
+		return Byte(value: lhs.value & UInt8(rhs))
 	}
 }
 

@@ -17,13 +17,13 @@ struct Word : Comparable, ExpressibleByIntegerLiteral {
 	static func +=(lhs: inout Word, rhs: Word) {
 		lhs.value += rhs.value
 	}
-	static func +=(lhs: inout Word, rhs: Register) {
+	static func +=(lhs: inout Word, rhs: Byte) {
 		lhs.value += UInt16(rhs.value)
 	}
 	static func +=(lhs: inout Word, rhs: Int) {
 		lhs.value += UInt16(rhs)
 	}
-	static func +(lhs: Word, rhs: Register) -> Word {
+	static func +(lhs: Word, rhs: Byte) -> Word {
 		return Word(value: lhs.value + UInt16(rhs.value))
 	}
 	static func +(lhs: Word, rhs: UInt8) -> Word {

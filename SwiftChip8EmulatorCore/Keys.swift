@@ -6,7 +6,7 @@ class Keys {
 	
 	var values = Array<Bool>(repeating: false, count:0xf)
 	
-	subscript(_ register: Register) -> Bool {
+	subscript(_ register: Byte) -> Bool {
 		get { return values[Int(register.value)] }
 	}
 	

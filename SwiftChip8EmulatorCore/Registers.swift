@@ -4,16 +4,16 @@ import Foundation
 
 class Registers {
 	
-	var values : [Register]
+	var values : [Byte]
 	
 	init() {
-		values = [Register]()
+		values = [Byte]()
 		for _ in 0...15 {
-			values.append(Register(value: 0x00))
+			values.append(Byte(value: 0x00))
 		}
 	}
 	
-	subscript(_ index: UInt8) -> Register {
+	subscript(_ index: UInt8) -> Byte {
 		get { return values[Int(index)]     }
 		set { values[Int(index)] = newValue }
 	}

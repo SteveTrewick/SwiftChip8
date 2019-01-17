@@ -247,16 +247,16 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 
 	func test_skip_reg_not_equal_true() {
 		machine.opcode        = Opcode(word:0x9ab0) // SNE a,b : skip if a != b
-		machine.register[0xa] = Register(value: 5)
-		machine.register[0xb] = Register(value: 6)
+		machine.register[0xa] = Byte(value: 5)
+		machine.register[0xb] = Byte(value: 6)
 		execute()
 		XCTAssert(machine.pc.pointer == 0x204)
 	}
 	
 	func test_skip_reg_not_equal_false() {
 		machine.opcode        = Opcode(word:0x9ab0) // SNE a,b : skip if a != b
-		machine.register[0xa] = Register(value: 5)
-		machine.register[0xb] = Register(value: 5)
+		machine.register[0xa] = Byte(value: 5)
+		machine.register[0xb] = Byte(value: 5)
 		execute()
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
@@ -270,7 +270,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 
 	func test_jmp_relative() {  // JP r0, addr : jump relative to reg 0
 		machine.opcode      = Opcode(word:0xb123)
-		machine.register[0] = Register(value:0x12)
+		machine.register[0] = Byte(value:0x12)
 		execute()
 		XCTAssert(machine.pc.pointer == 0x123 + 0x12)
 	}
@@ -289,7 +289,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	
 	func test_set_delay() {  // and FFS make these registers will you
 		machine.opcode = Opcode(word:0xf215) // LD DT, rx
-		machine.register[2] = Register(value:0xff)
+		machine.register[2] = Byte(value:0xff)
 		execute()
 		XCTAssert(machine.delaytimer.value == 0xff)
 		XCTAssert(machine.pc.pointer == 0x202)
@@ -297,7 +297,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	
 	func test_set_sound_timer() {  // LD ST, rx
 		machine.opcode      = Opcode(word:0xf218)
-		machine.register[2] = Register(value:0xff)
+		machine.register[2] = Byte(value:0xff)
 		execute()
 		XCTAssert(machine.soundtimer.value == 0xff)
 		XCTAssert(machine.pc.pointer       == 0x202)
@@ -305,7 +305,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	
 	func test_add_reg_to_memindex() { // ADD I, rx
 		machine.opcode      = Opcode(word:0xf31e)
-		machine.register[3] = Register(value:0xfe)
+		machine.register[3] = Byte(value:0xfe)
 		machine.memoryindex.value = 1
 		execute()
 		XCTAssert(machine.memoryindex.value == 0xff)
@@ -314,7 +314,7 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	
 	func test_load_memindex_font_sprite() {  // LD F, x
 		machine.opcode = Opcode(word: 0xfe29)
-		machine.register[0xe] = Register(value: 0x2)
+		machine.register[0xe] = Byte(value: 0x2)
 		execute()
 		XCTAssert(machine.memoryindex.value == 10)
 		XCTAssert(machine.pc.pointer          == 0x202)
@@ -322,27 +322,27 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	
 	func test_bcd() {
 		machine.opcode              = Opcode(word:0xfa33)
-		machine.register[0xa]       = Register(value: 0xff)
+		machine.register[0xa]       = Byte(value: 0xff)
 		machine.memoryindex.value = 0
 		execute()
-		XCTAssert(Array(machine.memory[0..<3]) == [Register(value:2), Register(value:5), Register(value:5)])
+		XCTAssert(Array(machine.memory[0..<3]) == [Byte(value:2), Byte(value:5), Byte(value:5)])
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
 	func test_store_reg() {
-		let bytes = (0x0...0xf).map { Register(value: $0) }
+		let bytes = (0x0...0xf).map { Byte(value: $0) }
 		for byte in bytes {
 			machine.register[byte.value] = byte
 		}
 		machine.opcode = Opcode(word: 0xff55)
 		machine.memoryindex.value = 0x0
 		execute()
-		XCTAssert(Array<Register>(machine.memory[0x0...0xf]) == bytes)
+		XCTAssert(Array<Byte>(machine.memory[0x0...0xf]) == bytes)
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
 	func test_load_reg() {
-		let values = (0x0...0xf).map{Register(value:$0)}
+		let values = (0x0...0xf).map{Byte(value:$0)}
 		for byte in values {
 			machine.memory[Word(value: UInt16(byte.value))] = byte
 		}
@@ -364,8 +364,8 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 	// hopefully I'm not that stupid again, but just in case ...
 	
 	func test_reg_is_value_type() {
-		let reg_x = Register(value: 0x10)
-		var reg_y = Register(value: 0x20)
+		let reg_x = Byte(value: 0x10)
+		var reg_y = Byte(value: 0x20)
 		
 		reg_y.value = 0x30
 		

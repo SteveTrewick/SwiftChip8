@@ -5,7 +5,7 @@ class Timer {
 	
 	var count: UInt8 = 0x00
 	
-	func load(_ register:Register) {
+	func load(_ register:Byte) {
 		count = register.value
 	}
 	

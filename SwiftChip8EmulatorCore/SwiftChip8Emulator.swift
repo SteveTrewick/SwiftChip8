@@ -7,11 +7,11 @@ struct MachineDescription : ExpressibleByDictionaryLiteral {
 	
 	var elements:[UInt8 : (MachineState) throws -> Void] = [:]
 	
-	init(dictionaryLiteral elements: (Register, (MachineState) throws -> Void)...) {
+	init(dictionaryLiteral elements: (Byte, (MachineState) throws -> Void)...) {
 		elements.forEach { element in self.elements[element.0.value] = element.1 }
 	}
 	
-	subscript(_ key: Register)  -> ((MachineState) throws -> Void)? {
+	subscript(_ key: Byte)  -> ((MachineState) throws -> Void)? {
 		get {
 			return elements[key.value]
 		}

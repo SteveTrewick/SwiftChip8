@@ -5,22 +5,22 @@ import Foundation
 class Memory : Collection {
 	
 	typealias Index   = Word
-	typealias Element = Register
+	typealias Element = Byte
 	
-	var contents = ContiguousArray<Register>()
+	var contents = ContiguousArray<Byte>()
 	
 	init()
 	{
 		for _ in 0..<4096 {
-			contents.append(Register())
+			contents.append(Byte())
 		}
 	}
 	
-	func load( _ offset: Int, _ register:Register) {
+	func load( _ offset: Int, _ register:Byte) {
 		contents[offset] = register
 	}
 
-	func load( _ bytes:[Register], _ index: Word) {
+	func load( _ bytes:[Byte], _ index: Word) {
 		for (offset, byte) in bytes.enumerated() {
 			contents[Int(index.value) + offset] = byte
 		}
@@ -28,7 +28,7 @@ class Memory : Collection {
 	
 	func load(romdata: [UInt8], offset: UInt16) {
 		for (idx, byte) in romdata.enumerated() {
-			contents[Int(offset) + idx] = Register(value: byte)
+			contents[Int(offset) + idx] = Byte(value: byte)
 		}
 	}
 	
