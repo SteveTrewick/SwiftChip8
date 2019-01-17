@@ -265,6 +265,13 @@
 			path = Graphics;
 			sourceTree = "<group>";
 		};
+		AA6A353C21F1116900510941 /* System */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
 		AA768DE721EDC0E70027A930 = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +344,7 @@
 		AA9627E421EF39A2002F7A9F /* SwiftChip8EmulatorCore */ = {
 			isa = PBXGroup;
 			children = (
+				AA6A353C21F1116900510941 /* System */,
 				AA6A353B21F110FE00510941 /* Graphics */,
 				AA6A353A21F110AF00510941 /* State */,
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
