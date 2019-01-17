@@ -23,14 +23,20 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		try! execute(machine)
 	}
 
-	// ok, just how do we go about doing the tests?
+	
+	
+	func test_ret() {
+		machine.opcode     = Opcode(word: 0x00ee)
+		machine.pc.pointer = 0x400
+		machine.pc.push()
+		execute()
+		XCTAssert(machine.pc.pointer == 0x402)
+	}
+	
 	func test_jmp() {
-		
 		machine.opcode = Opcode(word: 0x1abc) // jmp abc
 		execute()
-		
 		XCTAssert(machine.pc.pointer == 0x0abc)
-
 	}
 	
 
@@ -151,15 +157,204 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		XCTAssert(machine.pc.pointer    == 0x202)
 	}
 	
-	func test_reg_sub() {
-		machine.opcode = Opcode(word: 0x8ab5)
-		machine.register[0xa].load(0x12)
-		machine.register[0xb].load(0x0e)
+	func test_reg_sub_no_overflow() {
+		machine.opcode = Opcode(word: 0x8ab5)  //ra - rb
+		machine.register[0xa].load(25)
+		machine.register[0xb].load(13)
 		execute()
-		XCTAssert(machine.register[0xa] == 0x12 - 0x0e)
+		XCTAssert(machine.register[0xa] == 25 - 13)
+		XCTAssert(machine.register[0xf] == 1)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_reg_sub_overflow() {
+		machine.opcode = Opcode(word: 0x8ab5)  //ra - rb
+		machine.register[0xa].load(13)
+		machine.register[0xb].load(25)
+		execute()
+		XCTAssert(machine.register[0xa] == 13 &- 25)
+		XCTAssert(machine.register[0xf] == 0)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	// ok, the shift instructions, lets get a bit more explicit
+	let unshifted_msb  :UInt8 = 0b10000100
+	let unshifted_lsb  :UInt8 = 0b00010001
+	let unshifted      :UInt8 = 0b00110100
+	let shift_right    :UInt8 = 0b00011010
+	let shift_left     :UInt8 = 0b01101000
+	let shift_right_lsb:UInt8 = 0b00001000
+	let shift_left_msb :UInt8 = 0b00001000
+	
+	func test_shr_lsb() {
+		machine.opcode = Opcode(word: 0x8d06)
+		machine.register[0xd].load(unshifted_lsb)
+		execute()
+		XCTAssert(machine.register[0xd] == shift_right_lsb)
+		XCTAssert(machine.register[0xf] == 0x1)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_shr_no_lsb() {
+		machine.opcode = Opcode(word: 0x8d06)
+		machine.register[0xd].load(unshifted)
+		execute()
+		XCTAssert(machine.register[0xd] == shift_right)
+		XCTAssert(machine.register[0xf] == 0x0)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_shl_msb() {
+		machine.opcode = Opcode(word: 0x8d0e)
+		machine.register[0xd].load(unshifted_msb)
+		execute()
+		XCTAssert(machine.register[0xd] == shift_left_msb)
+		XCTAssert(machine.register[0xf] == 0x1)
 		XCTAssert(machine.pc.pointer    == 0x202)
 	}
 	
 	
+	func test_shl__no_msb() {
+		machine.opcode = Opcode(word: 0x8d0e)
+		machine.register[0xd].load(unshifted)
+		execute()
+		XCTAssert(machine.register[0xd] == shift_left)
+		XCTAssert(machine.register[0xf] == 0x0)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	
+	func test_reg_subn_no_overflow() {
+		machine.opcode = Opcode(word:0x8347)  //r3 = r4 - r3
+		machine.register[3].load(12)
+		machine.register[4].load(25)
+		execute()
+		XCTAssert(machine.register[3  ] == 13)
+		XCTAssert(machine.register[0xf] ==  1)
+		XCTAssert(machine.pc.pointer    == 0x202)
+	}
+	
+	func test_reg_subn_overflow() {
+		machine.opcode = Opcode(word:0x8347)  //r3 = r4 - r3
+		machine.register[3].load(24)
+		machine.register[4].load(12)
+		execute()
+		XCTAssert(machine.register[3  ] == UInt8(12) &- UInt8(24))
+		XCTAssert(machine.register[0xf] == 0)
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
+
+
+	func test_skip_reg_not_equal_true() {
+		machine.opcode        = Opcode(word:0x9ab0) // SNE a,b : skip if a != b
+		machine.register[0xa] = Register(value: 5)
+		machine.register[0xb] = Register(value: 6)
+		execute()
+		XCTAssert(machine.pc.pointer == 0x204)
+	}
+	
+	func test_skip_reg_not_equal_false() {
+		machine.opcode        = Opcode(word:0x9ab0) // SNE a,b : skip if a != b
+		machine.register[0xa] = Register(value: 5)
+		machine.register[0xb] = Register(value: 5)
+		execute()
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
+	
+	func test_load_memory_address() {  // LD I, addr
+		machine.opcode = Opcode(word:0xa123)
+		execute()
+		XCTAssert(machine.memoryindex.pointer == 0x123)
+		XCTAssert(machine.pc.pointer          == 0x202)
+	}
+
+	func test_jmp_relative() {  // JP r0, addr : jump relative to reg 0
+		machine.opcode      = Opcode(word:0xb123)
+		machine.register[0] = Register(value:0x12)
+		execute()
+		XCTAssert(machine.pc.pointer == 0x123 + 0x12)
+	}
+	
+	// rnd, is it possible to test that ? meh
+	func test_rnd() {
+		machine.opcode = Opcode(word:0xcaff)
+		execute()
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
+	// yes, its possible to test that it oincrements the fucking pc,
+	// which it wasnt. gargh!
+	// sprite drawing, this might be tricky, will come back for it
+	
+	// skip key - not even implmented yet, forgot about that
+	
+	func test_set_delay() {  // and FFS make these registers will you
+		machine.opcode = Opcode(word:0xf215) // LD DT, rx
+		machine.register[2] = Register(value:0xff)
+		execute()
+		XCTAssert(machine.delaytimer.count == 0xff)
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
+	
+	func test_set_sound_timer() {  // LD ST, rx
+		machine.opcode      = Opcode(word:0xf218)
+		machine.register[2] = Register(value:0xff)
+		execute()
+		XCTAssert(machine.soundtimer.count == 0xff)
+		XCTAssert(machine.pc.pointer       == 0x202)
+	}
+	
+	func test_add_reg_to_memindex() { // ADD I, rx
+		machine.opcode      = Opcode(word:0xf31e)
+		machine.register[3] = Register(value:0xfe)
+		machine.memoryindex.pointer = 1
+		execute()
+		XCTAssert(machine.memoryindex.pointer == 0xff)
+		XCTAssert(machine.pc.pointer          == 0x202)
+	}
+	
+	func test_load_memindex_font_sprite() {  // LD F, x
+		machine.opcode = Opcode(word: 0xfe29)
+		machine.register[0xe] = Register(value: 0x2)
+		execute()
+		XCTAssert(machine.memoryindex.pointer == 10)
+		XCTAssert(machine.pc.pointer          == 0x202)
+	}
+	
+	func test_bcd() {
+		machine.opcode              = Opcode(word:0xfa33)
+		machine.register[0xa]       = Register(value: 0xff)
+		machine.memoryindex.pointer = 0
+		execute()
+		XCTAssert(Array(machine.memory[0..<3]) == [UInt8(2), UInt8(5), UInt8(5)])
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
+	
+	func test_store_reg() {
+		let values = Array<UInt8>(0x0...0xf)
+		for value in values {
+			machine.register[value] = Register(value: value)
+		}
+		machine.opcode = Opcode(word: 0xff55)
+		machine.memoryindex.pointer = 0x0
+		execute()
+		XCTAssert(Array(machine.memory[0x0...0xf]) == values)
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
+	
+	func test_load_reg() {
+		let values = Array<UInt8>(0x0...0xf)
+		for value in values {
+			machine.memory[Int(value)] = value
+		}
+		machine.opcode              = Opcode(word: 0xff65)
+		machine.memoryindex.pointer = 0
+		execute()
+		for value in values {
+			XCTAssert(machine.register[value] == value)
+		}
+		XCTAssert(machine.pc.pointer == 0x202)
+	}
 	
 }
+
+
