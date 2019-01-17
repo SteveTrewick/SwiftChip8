@@ -93,7 +93,7 @@ public class Chip8SystemDescription {
 			
 			0xc : { $0.register[$0.opcode.x].load($0.rand($0.opcode.byte)) },
 
-			0xd: {	$0.register[0xf].load(0)
+			0xd: {	
 							$0.register[0xf].load( $0.rendersprite (
 								pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
 								height: $0.opcode.nibble,
