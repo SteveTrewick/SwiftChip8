@@ -22,12 +22,6 @@ struct Byte : Equatable {
 		self.overflow = 0
 	}
 	
- 	mutating func load(_ timer: Timer) {
-		self.value    = timer.count
-		self.overflow = 0
-	}
-
-	
 	
 	static func ==(lhs: Byte, rhs: Byte) -> Bool {
 		return lhs.value == rhs.value
