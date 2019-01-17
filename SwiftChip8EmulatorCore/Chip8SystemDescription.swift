@@ -72,8 +72,8 @@ public class Chip8SystemDescription {
 								0x6 : { $0.register[0xf        ].load($0.register[$0.opcode.x].bits[7])
 												$0.register[$0.opcode.x].load($0.register[$0.opcode.x] >> 1)
 								},
-								0x7 : { $0.register[$0.opcode.y] -= $0.register[$0.opcode.x]
-												$0.register[0xf        ].load($0.register[$0.opcode.y].overflow)
+								0x7 : { $0.register[$0.opcode.x] = $0.register[$0.opcode.y] - $0.register[$0.opcode.x]
+												$0.register[0xf        ].load($0.register[$0.opcode.x].overflow)
 								},
 								0xe : { $0.register[0xf        ].load($0.register[$0.opcode.x].bits[0])
 												$0.register[$0.opcode.x].load($0.register[$0.opcode.x] << 1)

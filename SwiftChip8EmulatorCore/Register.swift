@@ -50,12 +50,14 @@ class Register : Equatable {
 	}
 	
 	static func -=(lhs: Register, rhs: Register) {
-		print("lhs: \(lhs.value), rhs:\(rhs.value)")
 		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
-		print("result: \(result), overflow: \(overflow)")
 		lhs.value = result
 		lhs.overflow = overflow ? 0 : 1
-		print("lhs.value: \(lhs.value), lhs.overflow: \(lhs.overflow)")
+	}
+	
+	static func -(lhs: Register, rhs: Register) -> Register {
+		let (result, overflow) = lhs.value.subtractingReportingOverflow(rhs.value)
+		return Register(value: result, overflow: overflow ? 0 : 1)
 	}
 	
 	static func <<(lhs: Register, rhs: Int) -> UInt8 {
