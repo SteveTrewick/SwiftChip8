@@ -60,11 +60,11 @@ struct Register : Equatable {
 		return Register(value: result, overflow: overflow ? 0 : 1)
 	}
 	
-	static func <<(lhs: inout Register, rhs: Int) -> UInt8 {
-		return  lhs.value << rhs
+	static func <<(lhs: inout Register, rhs: Int) -> Register {
+		return  Register(value: lhs.value << rhs)
 	}
-	static func >>(lhs: inout Register, rhs: Int) -> UInt8 {
-		return lhs.value >> rhs
+	static func >>(lhs: inout Register, rhs: Int) -> Register {
+		return Register(value:lhs.value >> rhs)
 	}
 	
 	

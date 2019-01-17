@@ -355,6 +355,22 @@ class SwiftChip8EmulatorCoreTests: XCTestCase {
 		XCTAssert(machine.pc.pointer == 0x202)
 	}
 	
+	
+	// so a huge issue I had that was I had registers as class rather struct, and they should
+	// be value types.
+	// hopefully I'm not that stupid again, but just in case ...
+	
+	func test_reg_is_value_type() {
+		let reg_x = Register(value: 0x10)
+		var reg_y = Register(value: 0x20)
+		
+		reg_y.value = 0x30
+		
+		XCTAssert(reg_x.value == 0x10)
+		
+	}
+	
+	
 }
 
 
