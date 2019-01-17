@@ -320,8 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
-				AA6A353921F10F1D00510941 /* Types */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
+				AA6A353921F10F1D00510941 /* Types */,
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
 				AA96280521EF3AC0002F7A9F /* BitCollection.swift */,
 				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
