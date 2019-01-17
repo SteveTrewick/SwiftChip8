@@ -9,7 +9,7 @@ class SwiftChip8GPU {
 	let colorspace = CGColorSpaceCreateDeviceGray()
 	
 	func generateContext(width: Int, height: Int) -> CGContext? {
-		 return CGContext(
+		return CGContext(
 			data            : nil,
 			width           : width,
 			height          : height,
