@@ -22,7 +22,6 @@
 		AA9627F921EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA9627E321EF39A2002F7A9F /* SwiftChip8EmulatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA96280221EF39E4002F7A9F /* Chip8SystemDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */; };
 		AA96280421EF3A34002F7A9F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280321EF3A34002F7A9F /* Stack.swift */; };
-		AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280521EF3AC0002F7A9F /* BitCollection.swift */; };
 		AA96280821EF3AFC002F7A9F /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280721EF3AFC002F7A9F /* Byte.swift */; };
 		AA96280A21EF3B3E002F7A9F /* ProgramCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */; };
 		AA96280C21EF3B93002F7A9F /* EmulationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96280B21EF3B93002F7A9F /* EmulationError.swift */; };
@@ -147,7 +146,6 @@
 		AA9627F421EF39A2002F7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip8SystemDescription.swift; sourceTree = "<group>"; };
 		AA96280321EF3A34002F7A9F /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
-		AA96280521EF3AC0002F7A9F /* BitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitCollection.swift; sourceTree = "<group>"; };
 		AA96280721EF3AFC002F7A9F /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
 		AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramCounter.swift; sourceTree = "<group>"; };
 		AA96280B21EF3B93002F7A9F /* EmulationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulationError.swift; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA6A353921F10F1D00510941 /* Types */,
 				AA96280321EF3A34002F7A9F /* Stack.swift */,
-				AA96280521EF3AC0002F7A9F /* BitCollection.swift */,
 				AA96280B21EF3B93002F7A9F /* EmulationError.swift */,
 				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
 				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
@@ -714,7 +711,6 @@
 				AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */,
 				AA96282221EF677E002F7A9F /* SwiftChip8GPU.swift in Sources */,
 				AA6A353721F1092700510941 /* Word.swift in Sources */,
-				AA96280621EF3AC0002F7A9F /* BitCollection.swift in Sources */,
 				AA96280C21EF3B93002F7A9F /* EmulationError.swift in Sources */,
 				AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */,
 				AA96282021EF44B5002F7A9F /* SystemClock.swift in Sources */,
