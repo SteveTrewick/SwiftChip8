@@ -95,8 +95,7 @@ public class Chip8SystemDescription {
 							$0.pc.increment()
 						},
 
-			0xd: {
-							$0.register[0xf] = $0.rendersprite (
+			0xd : { $0.register[0xf] = $0.rendersprite (
 								pixels: $0.memory[$0.memoryindex..<$0.memoryindex + $0.opcode.nibble],
 								height: $0.opcode.nibble.value,
 								x     : $0.register[$0.opcode.x],
@@ -118,7 +117,8 @@ public class Chip8SystemDescription {
 								0x15: { $0.delaytimer = $0.register[$0.opcode.x] },
 								0x18: { $0.soundtimer = $0.register[$0.opcode.x] },
 								0x1e: { $0.memoryindex +=  $0.register[$0.opcode.x] },
-								0x29: { $0.memoryindex  =  0
+								
+								0x29: { $0.memoryindex   =  0
 												$0.memoryindex  += $0.register[$0.opcode.x] * 5
 											},
 								0x33: { $0.memory.load     ( $0.bcd($0.register[$0.opcode.x]), $0.memoryindex ) },
