@@ -247,6 +247,11 @@
 		AA6A353A21F110AF00510941 /* State */ = {
 			isa = PBXGroup;
 			children = (
+				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
+				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
+				AA96280F21EF3C5D002F7A9F /* Keys.swift */,
+				AA96281721EF3D69002F7A9F /* Memory.swift */,
+				AA96281B21EF3E71002F7A9F /* MachineState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -327,12 +332,7 @@
 				AA9627E521EF39A2002F7A9F /* SwiftChip8EmulatorCore.h */,
 				AA9627E621EF39A2002F7A9F /* Info.plist */,
 				AA6A353921F10F1D00510941 /* Types */,
-				AA96280921EF3B3E002F7A9F /* ProgramCounter.swift */,
-				AA96280D21EF3BEA002F7A9F /* Registers.swift */,
-				AA96280F21EF3C5D002F7A9F /* Keys.swift */,
-				AA96281721EF3D69002F7A9F /* Memory.swift */,
 				AA96281921EF3DC9002F7A9F /* SpriteBuffer.swift */,
-				AA96281B21EF3E71002F7A9F /* MachineState.swift */,
 				AA96280121EF39E4002F7A9F /* Chip8SystemDescription.swift */,
 				AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */,
 				AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */,
