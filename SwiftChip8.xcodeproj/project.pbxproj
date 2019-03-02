@@ -31,6 +31,7 @@
 		AA96281C21EF3E71002F7A9F /* MachineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281B21EF3E71002F7A9F /* MachineState.swift */; };
 		AA96281E21EF3F04002F7A9F /* SwiftChip8Emulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */; };
 		AA96282221EF677E002F7A9F /* SwiftChip8GPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */; };
+		AAFDA204222B19C2001F6B35 /* trip8.ch8 in Resources */ = {isa = PBXBuildFile; fileRef = AAFDA203222B1897001F6B35 /* trip8.ch8 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -408,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAFDA204222B19C2001F6B35 /* trip8.ch8 in Resources */,
 				AA768DF821EDC0E90027A930 /* Assets.xcassets in Resources */,
 				AA768DFB21EDC0E90027A930 /* Main.storyboard in Resources */,
 			);
