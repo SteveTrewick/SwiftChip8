@@ -109,6 +109,7 @@
 		AA96281B21EF3E71002F7A9F /* MachineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineState.swift; sourceTree = "<group>"; };
 		AA96281D21EF3F04002F7A9F /* SwiftChip8Emulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8Emulator.swift; sourceTree = "<group>"; };
 		AA96282121EF677E002F7A9F /* SwiftChip8GPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftChip8GPU.swift; sourceTree = "<group>"; };
+		AAFDA203222B1897001F6B35 /* trip8.ch8 */ = {isa = PBXFileReference; lastKnownFileType = file; name = trip8.ch8; path = ../../../../../../trip8.ch8; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +214,7 @@
 		AA768DF221EDC0E70027A930 /* SwiftChip8 */ = {
 			isa = PBXGroup;
 			children = (
+				AAFDA203222B1897001F6B35 /* trip8.ch8 */,
 				AA768DF321EDC0E70027A930 /* AppDelegate.swift */,
 				AA768DF521EDC0E70027A930 /* ViewController.swift */,
 				AA768DF721EDC0E90027A930 /* Assets.xcassets */,
