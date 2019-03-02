@@ -9,6 +9,8 @@ Like most versions, this one is incomplete, it lacks sound and the 'wait for a k
 
 At the moment, it just loads the trip8 demo ROM from the bundle and executes that.
 
+![Screen](https://github.com/SteveTrewick/SwiftChip8/blob/master/screen.png)
+
 # TO DO
 
 - Sound
