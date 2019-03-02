@@ -34,15 +34,17 @@ class ViewController: NSViewController {
 	
 	override func viewDidAppear() {
 		
-		// ok, that's how we do that, then
-		// NB we can't get the screen/window until viewDidAppear,
-		// didLoad will not cut it as they're not set yet.
+//		let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("trip8.ch8")
+		guard let url = Bundle.main.url(forResource: "trip8", withExtension: "ch8") else {
+			fatalError("couldn't find ROM URL")
+		}
+		guard let data = try? Data(contentsOf: url) else {
+			fatalError("couldn't load ROM")
+		}
+
+
 		
-		
-		let url = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("trip8.ch8")
-		guard let data = try? Data(contentsOf: url) else { fatalError() }
-		
-		
+
 		emulator.load(rom: Array(data), at: 0x200)
 		emulator.setPC(offset: 0x200)
 		
